@@ -74,7 +74,16 @@
         Los sensores Sentek registran humedad, temperatura y electroconductividad del suelo a distintas profundidades, lo que permite analizar la capacidad de penetración del agua y su pérdida, facilitando un uso eficiente del agua de riego.
       </p>
       <p style="color:var(--muted); line-height:1.72;">
-        Con el uso de técnicas de <strong>clusterización, análisis de componentes principales (PCA), análisis de correlaciones, regresiones logísticas y Random Forest</strong> se pretende aceptar o rechazar la hipótesis.
+        Con el uso de las siguientes técnicas se pretende aceptar o rechazar la hipótesis:
+        <ul style="margin:10px 0 0 18px; line-height:1.9;">
+          <li><strong>K-Means clustering</strong> — agrupación no supervisada de lecturas de sensor para detectar patrones naturales en los datos.</li>
+          <li><strong>Análisis de Componentes Principales (PCA)</strong> — reducción de dimensionalidad sobre VWC, temperatura y conductividad eléctrica por profundidad.</li>
+          <li><strong>Análisis de correlaciones (Pearson / Spearman)</strong> — identificación de relaciones entre variables de sensor y clase de suelo.</li>
+          <li><strong>Test de Kruskal-Wallis</strong> — validación estadística de diferencias significativas entre clases WRB por profundidad.</li>
+          <li><strong>Regresión Logística</strong> — clasificación WRB con validación Leave-One-Sensor-Out (LOSO). Accuracy 0.898, F1-macro 0.158.</li>
+          <li><strong>Random Forest Classifier</strong> — clasificación WRB con LOSO. Accuracy 0.809, F1-macro 0.199. Con calibración isotónica de probabilidades.</li>
+          <li><strong>Random Forest Regressor + Ridge (MultiOutput)</strong> — regresión de % arena, arcilla y limo para derivar clase USDA mediante triángulo textural.</li>
+        </ul>
       </p>
     </section>
 
