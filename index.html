@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="0; url=dashboard.html" />
-  <title>Presentacion Sentek - Inicio</title>
+  <title>Clasificación de tipos de suelo · Spherag</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -29,45 +28,74 @@
   </header>
 
   <main class="page-container">
+
     <section class="hero">
-      <p class="kicker">Presentacion multipagina</p>
-      <h1>Deteccion de tipo de suelo con sensores Sentek</h1>
+      <p class="kicker">Investigación aplicada · Campus Digital FP</p>
+      <h1>Clasificación de tipos de suelo a partir de sensores multinivel (Spherag)</h1>
       <p class="lead">
-        Esta portada redirige automáticamente al dashboard para que al abrir index.html entres en la vista con gráficos y scroll libre.
-        Si tu navegador no redirige solo, usa el acceso directo inferior.
+        Investigación de inteligencia artificial realizada por alumnos del Campus Digital FP para probar si es posible identificar el tipo de suelo a partir de los datos tomados por sensores multinivel Sentek.
       </p>
       <div class="chip-row">
-        <span class="chip">21 parquet</span>
-        <span class="chip">97,564 muestras unificadas</span>
-        <span class="chip">USDA oficial por punto</span>
+        <span class="chip">Jorge Herraiz Soler</span>
+        <span class="chip">Ralph Stephano Ronan</span>
+        <span class="chip">Ignacio Buey Ruiz</span>
       </div>
     </section>
 
-    <section class="grid two quick-access">
+    <section class="content-block">
+      <h2>Motivación y contexto</h2>
+      <p class="lead" style="margin-bottom:16px;">
+        Las distintas tipologías de suelo influyen considerablemente en la necesidad de riego, ritmo de crecimiento y rentabilidad de un cultivo. Actualmente, la identificación del tipo de suelo se realiza de distintas formas:
+      </p>
+      <ul class="steps">
+        <li><strong>Imágenes satelitales</strong> — en ocasiones sin la resolución adecuada o con datos incorrectos.</li>
+        <li><strong>Conocimiento empírico</strong> — el agricultor estima el tipo de suelo por experiencia, sin respaldo científico.</li>
+        <li><strong>Estudio científico</strong> — la más precisa, ofrece datos como la capacidad de campo, pero implica un coste económico mayor.</li>
+      </ul>
+    </section>
+
+    <section class="grid two">
       <article class="card">
-        <h3>1) Datos y pipeline</h3>
-        <p>Objetivos, fuentes, integración temporal y checks de consistencia.</p>
-        <p><a class="action-link" href="datos.html">Abrir página</a></p>
+        <h3>Clasificación USDA</h3>
+        <p>Sistema introducido por el Departamento de Agricultura de EE.UU. que establece <strong>12 clases de textura</strong> en función de los contenidos en arcilla, arena y limo.</p>
       </article>
       <article class="card">
-        <h3>2) Dashboard interactivo</h3>
-        <p>Triángulo USDA, capas por profundidad, filtros y exportación CSV.</p>
-        <p><a class="action-link" href="dashboard.html">Abrir página</a></p>
-      </article>
-      <article class="card">
-        <h3>3) Patrones y riesgos</h3>
-        <p>Hallazgos clave, límites metodológicos y roadmap de investigación.</p>
-        <p><a class="action-link" href="conclusiones.html">Abrir página</a></p>
-      </article>
-      <article class="card">
-        <h3>4) Nota de rigor</h3>
-        <p>Todo lo visual sale de datos reales de los CSV del proyecto, sin inventar valores. Cambisols aporta la base muestral más robusta y por eso tiene mucho peso analítico.</p>
+        <h3>Clasificación WRB</h3>
+        <p>Sistema establecido por la Unión Internacional de Ciencias del Suelo que tiene en cuenta <strong>multitud de características del suelo</strong> para su clasificación.</p>
       </article>
     </section>
-  </main>
 
-  <script>
-    window.location.replace('dashboard.html');
-  </script>
+    <section class="content-block">
+      <h2>Hipótesis de investigación</h2>
+      <p class="lead" style="margin-bottom:16px;">
+        <em>«Es posible identificar el tipo de suelo a partir de los datos tomados por un sensor multinivel Sentek.»</em>
+      </p>
+      <p style="color:var(--muted); line-height:1.72; margin-bottom:16px;">
+        Los sensores Sentek registran humedad, temperatura y electroconductividad del suelo a distintas profundidades, lo que permite analizar la capacidad de penetración del agua y su pérdida, facilitando un uso eficiente del agua de riego.
+      </p>
+      <p style="color:var(--muted); line-height:1.72;">
+        Con el uso de técnicas de <strong>clusterización, análisis de componentes principales (PCA), análisis de correlaciones, regresiones logísticas y Random Forest</strong> se pretende aceptar o rechazar la hipótesis.
+      </p>
+    </section>
+
+    <section class="grid three">
+      <article class="card">
+        <h3>Datos y Pipeline</h3>
+        <p>Fuentes, integración temporal, 21 archivos parquet y 97.564 muestras unificadas.</p>
+        <a class="action-link" href="datos.html">Ver datos</a>
+      </article>
+      <article class="card">
+        <h3>Dashboard interactivo</h3>
+        <p>Triángulo USDA, perfiles por profundidad, filtros dinámicos y exportación CSV.</p>
+        <a class="action-link" href="dashboard.html">Abrir dashboard</a>
+      </article>
+      <article class="card">
+        <h3>Figuras técnicas</h3>
+        <p>11 figuras diagnósticas: distribución WRB, missingness, PCA, correlaciones y textura USDA.</p>
+        <a class="action-link" href="figuras.html">Ver figuras</a>
+      </article>
+    </section>
+
+  </main>
 </body>
 </html>
