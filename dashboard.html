@@ -112,10 +112,83 @@
         <div id="usdaClassCounter" class="class-counter"></div>
         <p class="counter-note">Sin inventar datos: todo sale de CSV reales del proyecto.</p>
       </article>
+      <article class="chart-card full">
+        <h3>Curva de calibracion · RF Cambisols vs resto (isotonica)</h3>
+        <p style="color:var(--muted); font-size:0.88rem; margin:6px 16px 0;">Compara la probabilidad predicha por el modelo contra la frecuencia real de Cambisols. La linea diagonal = calibracion perfecta.</p>
+        <div id="calibrationChart" class="chart wide"></div>
+      </article>
+
+      <article class="chart-card full">
+        <h3>Curva de decision · beneficio neto por umbral</h3>
+        <p style="color:var(--muted); font-size:0.88rem; margin:6px 16px 0;">Muestra si merece la pena usar el modelo en vez de clasificar todo como Cambisols o no clasificar nada.</p>
+        <div id="decisionChart" class="chart wide"></div>
+      </article>
+
     </section>
   </main>
 
   <script src="presentation_data.js"></script>
   <script src="dashboard.js"></script>
+  <script>
+  fetch('calibration_data.json').then(r => r.json()).then(data => {
+    // Curva de calibracion
+    Plotly.newPlot('calibrationChart', [
+      {
+        x: data.calibration.mean_pred,
+        y: data.calibration.frac_pos,
+        mode: 'lines+markers',
+        name: 'RF calibrado (Isotonic)',
+        line: { color: '#0f766e', width: 2.5 },
+        marker: { size: 8, color: '#0f766e' },
+        hovertemplate: 'Prob. predicha: %{x:.3f}<br>Fraccion real: %{y:.3f}<extra></extra>'
+      },
+      {
+        x: [0, 1], y: [0, 1],
+        mode: 'lines',
+        name: 'Calibracion perfecta',
+        line: { color: '#94a3b8', dash: 'dash', width: 1.5 }
+      }
+    ], {
+      xaxis: { title: 'Probabilidad media predicha', range: [0, 1] },
+      yaxis: { title: 'Fraccion de positivos', range: [0, 1] },
+      legend: { orientation: 'h', y: -0.2 },
+      margin: { t: 10, b: 60, l: 60, r: 20 },
+      plot_bgcolor: '#fff', paper_bgcolor: '#fff',
+      font: { family: 'Space Grotesk, Segoe UI, sans-serif', size: 13 }
+    }, { responsive: true, displayModeBar: false });
+
+    // Curva de decision
+    const prev = data.decision.prevalence;
+    Plotly.newPlot('decisionChart', [
+      {
+        x: data.decision.thresholds,
+        y: data.decision.nb_model,
+        mode: 'lines', name: 'RF calibrado',
+        line: { color: '#0f766e', width: 2.5 },
+        hovertemplate: 'Umbral: %{x:.2f}<br>Beneficio neto: %{y:.4f}<extra></extra>'
+      },
+      {
+        x: data.decision.thresholds,
+        y: data.decision.nb_all,
+        mode: 'lines', name: 'Tratar todos',
+        line: { color: '#d97706', dash: 'dash', width: 1.8 },
+        hovertemplate: 'Umbral: %{x:.2f}<br>Beneficio neto: %{y:.4f}<extra></extra>'
+      },
+      {
+        x: data.decision.thresholds,
+        y: data.decision.thresholds.map(() => 0),
+        mode: 'lines', name: 'No clasificar',
+        line: { color: '#94a3b8', dash: 'dot', width: 1.5 }
+      }
+    ], {
+      xaxis: { title: 'Umbral de decision', range: [0, 1] },
+      yaxis: { title: 'Beneficio neto', range: [-0.05, Math.max(prev + 0.05, 0.6)] },
+      legend: { orientation: 'h', y: -0.2 },
+      margin: { t: 10, b: 60, l: 70, r: 20 },
+      plot_bgcolor: '#fff', paper_bgcolor: '#fff',
+      font: { family: 'Space Grotesk, Segoe UI, sans-serif', size: 13 }
+    }, { responsive: true, displayModeBar: false });
+  });
+  </script>
 </body>
 </html>
