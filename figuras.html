@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentacion Sentek - Figuras Tecnicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <p>Spherag | Sentek Soil Intelligence</p>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link is-active" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="content-block">
+      <p class="kicker">Evidencia visual completa</p>
+      <h1>11 graficos diagnosticos interactivos</h1>
+      <p class="lead">Cada panel es interactivo real (Plotly): zoom, pan, hover y guardado. Los datos salen de los CSV del proyecto, sin inventar valores.</p>
+    </section>
+
+    <section class="content-block">
+      <h2>Metodología técnica aplicada</h2>
+      <div class="method-tags">
+        <span class="method-tag">RandomForest</span>
+        <span class="method-tag">J48</span>
+        <span class="method-tag">Regresión Logística</span>
+        <span class="method-tag">Clasificación no supervisada</span>
+        <span class="method-tag">Normalización de datos</span>
+      </div>
+      <p class="counter-note">Este bloque resume tecnologías de modelado a defender en la presentación. Los resultados cuantitativos siempre deben venir de los CSV y reportes del proyecto.</p>
+    </section>
+
+    <style>
+      .fig-comment { margin: 8px 0 0; padding: 10px 14px; background: #f3f8f1; border-left: 3px solid #2f7a45; border-radius: 0 8px 8px 0; font-size: .93rem; line-height: 1.5; color: #3a4f3a; }
+    </style>
+
+    <section class="figure-grid">
+      <article class="chart-card">
+        <h3>1. WRB class distribution</h3>
+        <div id="fig1" class="chart figure-chart"></div>
+        <p class="fig-comment">Desbalance severo: Cambisols concentra la mayoria de la muestra. Cualquier accuracy global sin normalizacion por clase es engañosa para evaluar el modelo.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>2. WRB class distribution (log)</h3>
+        <div id="fig2" class="chart figure-chart"></div>
+        <p class="fig-comment">En escala log se hacen visibles clases con muy poco soporte como Alisols o Calcisols. Imprescindible para diseñar estrategia de rebalanceo.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>3. WRB missing top20</h3>
+        <div id="fig3" class="chart figure-chart"></div>
+        <p class="fig-comment">Ordena variables por porcentaje de faltantes. Los canales en la parte alta son candidatos a imputacion o exclusion antes de entrenar.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>4. Missing by depth signal</h3>
+        <div id="fig4" class="chart figure-chart"></div>
+        <p class="fig-comment">El patron de huecos no es uniforme: hay profundidades y canales mas fragiles en captura. Critico para decidir que capas incluir como predictores.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>5. VWC profile top classes</h3>
+        <div id="fig5" class="chart figure-chart"></div>
+        <p class="fig-comment">Firmas hidricas medias por profundidad para las clases con mayor muestra. Las diferencias verticales entre clases son el patron primario de separabilidad fisica.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>6. TEMP profile top classes</h3>
+        <div id="fig6" class="chart figure-chart"></div>
+        <p class="fig-comment">Complementa la firma hidrica con gradiente termico vertical. Clases con mayor diferencia de temperatura en profundidad tienen mejor separabilidad termica.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>7. Predictor correlation</h3>
+        <div id="fig7" class="chart figure-chart"></div>
+        <p class="fig-comment">Muestra colinealidad entre canales y profundidades. Bloques de alta correlacion pueden reducirse sin perder informacion, simplificando el modelo.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>8. WRB PCA top classes</h3>
+        <div id="fig8" class="chart figure-chart"></div>
+        <p class="fig-comment">Separabilidad en espacio reducido (PC1/PC2). Si las clases se solapan aqui, la frontera de decision requerira modelos no lineales como Random Forest.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>9. USDA targets histogram</h3>
+        <div id="fig9" class="chart figure-chart"></div>
+        <p class="fig-comment">Distribucion de arcilla, arena y limo en porcentaje normalizado. Revela si los objetivos de regresion estan sesgados hacia ciertos rangos de textura.</p>
+      </article>
+
+      <article class="chart-card">
+        <h3>10. USDA texture scatter</h3>
+        <div id="fig10" class="chart figure-chart"></div>
+        <p class="fig-comment">Relacion entre fracciones texturales. Los agrupamientos visibles indican zonas del triangulo USDA con mayor densidad muestral y mayor certeza de clasificacion.</p>
+      </article>
+
+      <article class="chart-card full">
+        <h3>11. Unified label coverage</h3>
+        <div id="fig11" class="chart figure-chart"></div>
+        <p class="fig-comment">Cuantifica que porcion del total de bloques Sentek tiene etiqueta WRB o propiedades USDA asignadas. Define el techo real de la evidencia supervisada disponible.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="figuras_data.js"></script>
+  <script src="figuras.js"></script>
+</body>
+</html>

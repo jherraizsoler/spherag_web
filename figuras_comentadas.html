@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spherag | Figuras Comentadas</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --surface: #ffffff;
+      --text: #1f2a1f;
+      --muted: #4f6650;
+      --accent: #2f7a45;
+      --border: #dbe5d6;
+      --shadow: 0 10px 30px rgba(31, 42, 31, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+      background: radial-gradient(circle at top right, #eaf2e5 0%, var(--bg) 45%, #eef2eb 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      width: min(1180px, 94%);
+      margin: 28px auto 60px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #2f7a45 0%, #254f35 100%);
+      color: #f3f9f1;
+      border-radius: 18px;
+      padding: 26px 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--border);
+      background: #fafcf8;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #e5f2e5;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Figuras del Proyecto Sentek, visuales y comentadas</h1>
+      <p>
+        Galeria completa de evidencias del pipeline con comentarios tecnicos para lectura rapida.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <img src="results/figures/01_wrb_class_distribution.png" alt="Distribucion de clases WRB" />
+        <div class="card-body">
+          <span class="tag">Figura 01</span>
+          <h2>Distribucion WRB</h2>
+          <p>Se aprecia el desbalance fuerte de clases. Cambisols domina la muestra y condiciona cualquier metrica global.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/02_wrb_class_distribution_log.png" alt="Distribucion WRB escala log" />
+        <div class="card-body">
+          <span class="tag">Figura 02</span>
+          <h2>Distribucion WRB en escala log</h2>
+          <p>La escala log revela clases minoritarias ocultas en escala lineal y ayuda a diagnosticar riesgo de sesgo en entrenamiento.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/03_wrb_missing_top20.png" alt="Top 20 variables con mas faltantes" />
+        <div class="card-body">
+          <span class="tag">Figura 03</span>
+          <h2>Top 20 de missingness</h2>
+          <p>Prioriza variables con mayor ausencia de datos. Sirve para decidir imputacion, descarte o rediseno de features.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/04_missing_by_depth_signal.png" alt="Faltantes por profundidad y tipo de senal" />
+        <div class="card-body">
+          <span class="tag">Figura 04</span>
+          <h2>Faltantes por profundidad y senal</h2>
+          <p>Muestra que el missingness no es uniforme en el perfil. Hay capas/canales mas frágiles que otras.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/05_vwc_profile_top_classes.png" alt="Perfil VWC medio por clases principales" />
+        <div class="card-body">
+          <span class="tag">Figura 05</span>
+          <h2>Perfil de humedad VWC</h2>
+          <p>Compara huellas medias por profundidad entre clases top. Es clave para detectar separabilidad fisica entre suelos.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/06_temp_profile_top_classes.png" alt="Perfil de temperatura medio por clases principales" />
+        <div class="card-body">
+          <span class="tag">Figura 06</span>
+          <h2>Perfil de temperatura</h2>
+          <p>Permite ver gradientes termicos por capa y su variacion entre clases, complemento del patron hidrico.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/07_predictor_correlation.png" alt="Matriz de correlacion de predictores" />
+        <div class="card-body">
+          <span class="tag">Figura 07</span>
+          <h2>Correlacion de predictores</h2>
+          <p>Identifica colinealidad y redundancia. Ayuda a simplificar variables y a evitar sobreajuste en ciertos modelos.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/08_wrb_pca_top_classes.png" alt="PCA clases WRB principales" />
+        <div class="card-body">
+          <span class="tag">Figura 08</span>
+          <h2>PCA de clases WRB</h2>
+          <p>Ofrece una vista de separabilidad en espacio reducido. Si hay solape alto, la frontera de clasificacion sera compleja.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/09_usda_targets_hist.png" alt="Histogramas de objetivos USDA" />
+        <div class="card-body">
+          <span class="tag">Figura 09</span>
+          <h2>Histogramas USDA</h2>
+          <p>Resume la forma de las distribuciones objetivo (arcilla, arena, limo) y su posible sesgo o concentracion.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/10_usda_texture_scatter.png" alt="Relacion entre componentes USDA" />
+        <div class="card-body">
+          <span class="tag">Figura 10</span>
+          <h2>Scatter de textura USDA</h2>
+          <p>Visualiza relaciones entre fracciones texturales y posibles regiones de textura dominantes en los datos.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="results/figures/11_unified_label_coverage.png" alt="Cobertura de etiquetas en dataset unificado" />
+        <div class="card-body">
+          <span class="tag">Figura 11</span>
+          <h2>Cobertura de etiquetado</h2>
+          <p>Cuantifica cobertura real WRB/USDA en el unificado; esencial para saber hasta donde llega la evidencia supervisada.</p>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">
+      Si alguna imagen no aparece, primero ejecuta: python diagnose_sentek_pipeline.py
+    </p>
+  </main>
+</body>
+</html>

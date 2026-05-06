@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentacion Sentek - Patrones y Roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <p>Spherag | Sentek Soil Intelligence</p>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link is-active" href="conclusiones.html">Patrones y Roadmap</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="content-block">
+      <p class="kicker">Insights exploratorios</p>
+      <h1>Patrones detectados</h1>
+      <div class="bars">
+        <div class="bar-row"><span>Dominio Cambisols</span><div class="bar"><i style="width: 89%;"></i></div></div>
+        <div class="bar-row"><span>Etiquetas disponibles</span><div class="bar"><i style="width: 45%;"></i></div></div>
+        <div class="bar-row"><span>Faltantes VIC profundos</span><div class="bar"><i style="width: 98%;"></i></div></div>
+      </div>
+      <p class="note">Priorizar métricas robustas por clase y tratamiento explícito de missingness por profundidad.</p>
+    </section>
+
+    <section class="content-block">
+      <p class="kicker">Riesgos</p>
+      <h2>Qué puede sesgar resultados</h2>
+      <div class="grid two">
+        <article class="card warn">
+          <h3>Desbalance severo</h3>
+          <p>No usar accuracy sola. Mejor macro-F1, balanced accuracy y matriz de confusión por clase.</p>
+        </article>
+        <article class="card warn">
+          <h3>Missing no aleatorio</h3>
+          <p>Muchos vacíos dependen de arquitectura de sensor. Evitar imputación ciega.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-block">
+      <p class="kicker">Roadmap</p>
+      <h2>Siguientes pasos de investigación</h2>
+      <div class="timeline">
+        <div class="milestone"><b>1</b><p>Baselines WRB y USDA con validación estratificada.</p></div>
+        <div class="milestone"><b>2</b><p>Análisis por capas (TEMP/VWC) por tipo de suelo.</p></div>
+        <div class="milestone"><b>3</b><p>Pruning de variables con missing extremo.</p></div>
+        <div class="milestone"><b>4</b><p>Informe final con evidencia visual y estadística.</p></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

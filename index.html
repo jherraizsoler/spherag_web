@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=dashboard.html" />
+  <title>Presentacion Sentek - Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <p>Spherag | Sentek Soil Intelligence</p>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link is-active" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="hero">
+      <p class="kicker">Presentacion multipagina</p>
+      <h1>Deteccion de tipo de suelo con sensores Sentek</h1>
+      <p class="lead">
+        Esta portada redirige automáticamente al dashboard para que al abrir index.html entres en la vista con gráficos y scroll libre.
+        Si tu navegador no redirige solo, usa el acceso directo inferior.
+      </p>
+      <div class="chip-row">
+        <span class="chip">21 parquet</span>
+        <span class="chip">97,564 muestras unificadas</span>
+        <span class="chip">USDA oficial por punto</span>
+      </div>
+    </section>
+
+    <section class="grid two quick-access">
+      <article class="card">
+        <h3>1) Datos y pipeline</h3>
+        <p>Objetivos, fuentes, integración temporal y checks de consistencia.</p>
+        <p><a class="action-link" href="datos.html">Abrir página</a></p>
+      </article>
+      <article class="card">
+        <h3>2) Dashboard interactivo</h3>
+        <p>Triángulo USDA, capas por profundidad, filtros y exportación CSV.</p>
+        <p><a class="action-link" href="dashboard.html">Abrir página</a></p>
+      </article>
+      <article class="card">
+        <h3>3) Patrones y riesgos</h3>
+        <p>Hallazgos clave, límites metodológicos y roadmap de investigación.</p>
+        <p><a class="action-link" href="conclusiones.html">Abrir página</a></p>
+      </article>
+      <article class="card">
+        <h3>4) Nota de rigor</h3>
+        <p>Todo lo visual sale de datos reales de los CSV del proyecto, sin inventar valores. Cambisols aporta la base muestral más robusta y por eso tiene mucho peso analítico.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    window.location.replace('dashboard.html');
+  </script>
+</body>
+</html>

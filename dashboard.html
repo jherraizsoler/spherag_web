@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentacion Sentek - Dashboard Vivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <p>Spherag | Sentek Soil Intelligence</p>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link is-active" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="content-block">
+      <p class="kicker">Graficos vivos con scroll</p>
+      <h1>Explorador interactivo WRB + USDA</h1>
+      <p class="lead">El volumen de datos en Cambisols aporta una base estadística muy sólida para patrones de capas. El resto de clases también se mantienen visibles para comparación.</p>
+
+      <div class="live-controls">
+        <label>
+          Profundidad USDA
+          <select id="depthSelect">
+            <option value="depth_30_60">30-60 cm</option>
+            <option value="depth_60_100">60-100 cm</option>
+          </select>
+        </label>
+        <label>
+          Clase WRB
+          <select id="classSelect">
+            <option value="All">Todas</option>
+          </select>
+        </label>
+        <label>
+          Perfil por capas
+          <select id="signalSelect">
+            <option value="vwc">VWC</option>
+            <option value="temp">TEMP</option>
+          </select>
+        </label>
+        <label>
+          Color de puntos
+          <select id="colorModeSelect">
+            <option value="usda" selected>Clase USDA</option>
+            <option value="wrb">Clase WRB</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="provenanceBox" class="provenance-box"></div>
+
+      <div class="defense-tools">
+        <button id="defenseModeBtn" class="ctrl" type="button">Modo defensa</button>
+        <p class="counter-note">Genera un resumen técnico automático para exponer.</p>
+      </div>
+      <article id="defenseCard" class="defense-card" hidden>
+        <h3>Resumen para defensa</h3>
+        <div id="defenseContent"></div>
+      </article>
+    </section>
+
+    <section class="chart-grid">
+      <article class="chart-card">
+        <h3>Distribucion de clases WRB</h3>
+        <div id="wrbChart" class="chart"></div>
+      </article>
+
+      <article class="chart-card">
+        <h3>Triangulo USDA con secciones y puntos</h3>
+        <div id="usdaChart" class="chart"></div>
+      </article>
+
+      <article class="chart-card full">
+        <h3>Capas por profundidad (temperatura / humedad)</h3>
+        <div id="profileChart" class="chart wide"></div>
+      </article>
+
+      <article class="chart-card full">
+        <h3>Incertidumbre por capa (mediana + IQR por clase)</h3>
+        <div id="uncertaintyChart" class="chart wide"></div>
+      </article>
+
+      <article class="chart-card full">
+        <h3>Test estadístico por profundidad (Kruskal-Wallis)</h3>
+        <div id="kruskalChart" class="chart"></div>
+        <div id="kruskalPanel" class="stats-panel"></div>
+      </article>
+
+      <article class="chart-card full">
+        <h3>Contador USDA (filtro actual)</h3>
+        <div class="counter-tools">
+          <p id="top3Summary" class="counter-summary">Top 3 acumulado: -</p>
+          <button id="exportCounterBtn" class="ctrl export-btn" type="button">Exportar contador CSV</button>
+        </div>
+        <div id="usdaClassCounter" class="class-counter"></div>
+        <p class="counter-note">Sin inventar datos: todo sale de CSV reales del proyecto.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="presentation_data.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
