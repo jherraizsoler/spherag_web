@@ -69,9 +69,8 @@ p { margin: 0; }
 }
 
 .brand-logos img {
-  height: 52px;
   width: auto;
-  object-fit: contain;
+  max-height: 50px;
   display: block;
 }
 
@@ -80,7 +79,8 @@ p { margin: 0; }
   padding: 5px 10px;
   border: 1px solid var(--line-strong);
   border-radius: 4px;
-  height: 48px;
+  height: 44px;
+  max-height: none;
 }
 
 .brand-logos .divider {
