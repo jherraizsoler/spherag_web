@@ -50,7 +50,7 @@ p { margin: 0; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 22px;
+  padding: 8px 22px;
   border-bottom: 1px solid var(--line-strong);
   background: #ffffff;
   box-shadow: var(--shadow-soft);
@@ -65,11 +65,11 @@ p { margin: 0; }
 .brand-logos {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
 .brand-logos img {
-  height: 38px;
+  height: 52px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -77,15 +77,15 @@ p { margin: 0; }
 
 .brand-logos img.logo-spherag {
   background: #fff;
-  padding: 4px 8px;
+  padding: 5px 10px;
   border: 1px solid var(--line-strong);
   border-radius: 4px;
-  height: 42px;
+  height: 48px;
 }
 
 .brand-logos .divider {
   width: 1px;
-  height: 30px;
+  height: 40px;
   background: var(--line-strong);
 }
 
