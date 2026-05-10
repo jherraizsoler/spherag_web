@@ -29,69 +29,66 @@
 
   <main class="page-container">
 
-    <!-- KPIs del dataset -->
+    <!-- Hero -->
     <section class="hero">
-      <p class="kicker">Resultados reales del pipeline · Leave-One-Sensor-Out</p>
+      <p class="kicker">Dos líneas de investigación paralelas · Campus Digital FP × Spherag</p>
       <h1>Resultados y Conclusiones</h1>
-      <p class="lead">Todos los datos provienen del pipeline ejecutado sobre los 44.011 registros etiquetados de los sensores X91 y X93.</p>
+      <p class="lead">El proyecto se articuló en dos líneas independientes que comparten los mismos datos Sentek: clasificación taxonómica WRB (Python / LightGBM) y clasificación textural USDA (R + Weka).</p>
       <div class="chip-row">
-        <span class="chip">44.011 muestras WRB</span>
-        <span class="chip">2 sensores (X91 / X93)</span>
-        <span class="chip">6 clases WRB</span>
-        <span class="chip">Validación Leave-One-Sensor-Out</span>
+        <span class="chip">Línea WRB — Jorge Herraiz Soler</span>
+        <span class="chip">Línea USDA — Ralph Stephano · Ignacio Buey</span>
+        <span class="chip">21 Parquet · 305.842 registros</span>
+        <span class="chip">Sensores Sentek multinivel</span>
       </div>
     </section>
 
-    <!-- Distribución WRB -->
-    <section class="content-block">
-      <p class="kicker">Distribución real del dataset</p>
-      <h2>Composición por tipo de suelo WRB</h2>
-      <p style="color:var(--muted); margin-bottom:18px;">El desbalance de clases es el hallazgo más crítico del estudio. Cambisols domina con el 89,8% de las muestras, lo que condiciona directamente los resultados del modelo.</p>
+    <!-- Separador líneas -->
+    <section class="grid two" style="margin-bottom:0;">
+      <article class="card" style="border-top:4px solid var(--accent);">
+        <p class="kicker">Línea A</p>
+        <h3>Clasificación WRB</h3>
+        <p style="color:var(--muted); font-size:0.9rem; line-height:1.7;">
+          <strong>Responsable:</strong> Jorge Herraiz Soler<br/>
+          <strong>Herramientas:</strong> Python 3.11 · scikit-learn · LightGBM<br/>
+          <strong>Validación:</strong> Leave-One-Sensor-Out (X91 / X93)<br/>
+          <strong>Dataset:</strong> 7.591 instancias · 59 features · 6 clases WRB
+        </p>
+      </article>
+      <article class="card" style="border-top:4px solid var(--accent-2);">
+        <p class="kicker">Línea B</p>
+        <h3>Clasificación USDA Textural</h3>
+        <p style="color:var(--muted); font-size:0.9rem; line-height:1.7;">
+          <strong>Responsables:</strong> Ralph Stephano Ronan · Ignacio Buey Ruiz<br/>
+          <strong>Herramientas:</strong> R (7 scripts) · Weka · Random Forest<br/>
+          <strong>Validación:</strong> Split 66/34 + SMOTE 500% (k=5)<br/>
+          <strong>Dataset:</strong> 10.643 instancias · 8 features · 12 clases USDA
+        </p>
+      </article>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ LÍNEA A: WRB -->
+    <section class="content-block" style="margin-top:32px;">
+      <p class="kicker">Línea A — Clasificación WRB · Jorge Herraiz Soler</p>
+      <h2>Distribución de clases WRB en el dataset</h2>
+      <p style="color:var(--muted); margin-bottom:18px;">El desbalance de clases es el hallazgo más crítico de esta línea. Cambisols domina con el 89,8% de las muestras, lo que condiciona directamente los resultados del modelo inter-sensor.</p>
       <div class="bars">
-        <div class="bar-row">
-          <span>Cambisols</span>
-          <div class="bar"><i style="width:89.8%;"></i></div>
-          <span class="bar-label">39.542</span>
-        </div>
-        <div class="bar-row">
-          <span>Arenosols</span>
-          <div class="bar"><i style="width:5.7%; background:var(--accent-2);"></i></div>
-          <span class="bar-label">2.498</span>
-        </div>
-        <div class="bar-row">
-          <span>Luvisols</span>
-          <div class="bar"><i style="width:2.6%; background:var(--accent-3);"></i></div>
-          <span class="bar-label">1.138</span>
-        </div>
-        <div class="bar-row">
-          <span>Fluvisols</span>
-          <div class="bar"><i style="width:1.5%; background:#7c3aed;"></i></div>
-          <span class="bar-label">655</span>
-        </div>
-        <div class="bar-row">
-          <span>Calcisols</span>
-          <div class="bar"><i style="width:0.4%; background:#db2777;"></i></div>
-          <span class="bar-label">176</span>
-        </div>
-        <div class="bar-row">
-          <span>Alisols</span>
-          <div class="bar"><i style="width:0.1%; background:#dc2626;"></i></div>
-          <span class="bar-label">2</span>
-        </div>
+        <div class="bar-row"><span>Cambisols</span><div class="bar"><i style="width:89.8%;"></i></div><span class="bar-label">39.542</span></div>
+        <div class="bar-row"><span>Arenosols</span><div class="bar"><i style="width:5.7%; background:var(--accent-2);"></i></div><span class="bar-label">2.498</span></div>
+        <div class="bar-row"><span>Luvisols</span><div class="bar"><i style="width:2.6%; background:var(--accent-3);"></i></div><span class="bar-label">1.138</span></div>
+        <div class="bar-row"><span>Fluvisols</span><div class="bar"><i style="width:1.5%; background:#7c3aed;"></i></div><span class="bar-label">655</span></div>
+        <div class="bar-row"><span>Calcisols</span><div class="bar"><i style="width:0.4%; background:#db2777;"></i></div><span class="bar-label">176</span></div>
+        <div class="bar-row"><span>Alisols</span><div class="bar"><i style="width:0.1%; background:#dc2626;"></i></div><span class="bar-label">2</span></div>
       </div>
     </section>
 
-    <!-- Métricas WRB -->
     <section class="content-block">
-      <p class="kicker">Clasificación WRB</p>
-      <h2>Resultados de los modelos (Leave-One-Sensor-Out)</h2>
+      <h2>Resultados WRB — Leave-One-Sensor-Out</h2>
       <p style="color:var(--muted); margin-bottom:18px;">
-        Se entrenó en el sensor X91 y se evaluó en X93, y viceversa. Esta es la validación más exigente posible con los datos disponibles.
+        Se entrenó en el sensor X91 y se evaluó en X93, y viceversa. Validación inter-sensor sin filtración temporal de datos.
       </p>
-
       <div class="grid two" style="margin-bottom:20px;">
         <article class="card">
-          <p class="kicker">Random Forest</p>
+          <p class="kicker">Random Forest · Python</p>
           <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
             <div style="text-align:center;">
               <div style="font-size:2rem; font-weight:700; color:var(--accent);">80.9%</div>
@@ -108,7 +105,7 @@
           </div>
         </article>
         <article class="card">
-          <p class="kicker">Regresión Logística</p>
+          <p class="kicker">Regresión Logística · Python</p>
           <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
             <div style="text-align:center;">
               <div style="font-size:2rem; font-weight:700; color:var(--accent);">44.6%</div>
@@ -125,8 +122,7 @@
           </div>
         </article>
       </div>
-
-      <p class="kicker">F1 por clase · Random Forest</p>
+      <p class="kicker">F1 por clase WRB · Random Forest</p>
       <div class="bars" style="margin-top:10px;">
         <div class="bar-row"><span>Cambisols</span><div class="bar"><i style="width:93.8%;"></i></div><span class="bar-label">0.938</span></div>
         <div class="bar-row"><span>Arenosols</span><div class="bar"><i style="width:0%; background:var(--accent-2);"></i></div><span class="bar-label">0.000</span></div>
@@ -136,50 +132,23 @@
         <div class="bar-row"><span>Alisols</span><div class="bar"><i style="width:0%;"></i></div><span class="bar-label">0.000</span></div>
       </div>
       <p class="note" style="margin-top:12px;">
-        El modelo aprende a predecir casi siempre Cambisols porque domina el 90% del set. La accuracy de 80.9% es engañosa — el F1-macro de 0.199 refleja la realidad: las clases minoritarias no se detectan entre sensores distintos.
+        La accuracy del 80.9% es engañosa: un clasificador que prediga siempre Cambisols obtendría ~89%. El F1-macro de 0.199 refleja la realidad: las clases minoritarias no se detectan al cruzar entre sensores distintos.
       </p>
     </section>
 
-    <!-- USDA -->
     <section class="content-block">
-      <p class="kicker">Regresión USDA multiobjetivo</p>
-      <h2>Textura del suelo (clay / sand / silt)</h2>
+      <h2>Regresión USDA multiobjetivo — Línea A</h2>
       <p style="color:var(--muted); margin-bottom:18px;">
-        Se regresaron 6 targets de textura (arcilla, arena, limo a 30–60 cm y 60–100 cm). El R² negativo confirma que el patrón de textura <strong>no se transfiere entre sensores</strong> sin recalibración previa.
+        Complemento de la línea WRB: regresión de las fracciones texturales (arcilla, arena, limo) a 30–60 cm y 60–100 cm con Random Forest + Ridge. El R² negativo confirma que el patrón <strong>no se transfiere entre sensores</strong> sin recalibración.
       </p>
       <div class="grid three">
-        <article class="card">
-          <h3>Clay 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.16</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 16.1%</p>
-        </article>
-        <article class="card">
-          <h3>Sand 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.48</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p>
-        </article>
-        <article class="card">
-          <h3>Silt 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.68</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 24.2%</p>
-        </article>
-        <article class="card">
-          <h3>Clay 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.07</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 16.2%</p>
-        </article>
-        <article class="card">
-          <h3>Sand 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.40</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p>
-        </article>
-        <article class="card">
-          <h3>Silt 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −2.14</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 26.0%</p>
-        </article>
+        <article class="card"><h3>Clay 30–60 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.16</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 16.1%</p></article>
+        <article class="card"><h3>Sand 30–60 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.48</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p></article>
+        <article class="card"><h3>Silt 30–60 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.68</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 24.2%</p></article>
+        <article class="card"><h3>Clay 60–100 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.07</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 16.2%</p></article>
+        <article class="card"><h3>Sand 60–100 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.40</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p></article>
+        <article class="card"><h3>Silt 60–100 cm</h3><p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −2.14</p><p style="color:var(--muted); font-size:0.85rem;">MAE = 26.0%</p></article>
       </div>
-
       <p class="kicker" style="margin-top:20px;">Clase USDA derivada del triángulo de texturas</p>
       <div class="bars" style="margin-top:10px;">
         <div class="bar-row"><span>Loam</span><div class="bar"><i style="width:63%;"></i></div><span class="bar-label">60.759</span></div>
@@ -190,59 +159,95 @@
       </div>
     </section>
 
-    <!-- Interpretación -->
-    <section class="grid two">
-      <article class="card warn">
-        <h3>Por que la accuracy engana</h3>
-        <p>Con 89.8% de muestras Cambisols, un clasificador que predice siempre Cambisols obtiene ~89% de accuracy. El F1-macro de 0.199 es la métrica honesta: las clases minoritarias no se detectan.</p>
-      </article>
-      <article class="card warn">
-        <h3>Por que el R² es negativo</h3>
-        <p>Solo hay 2 sensores. Entrenar en X91 y predecir en X93 (o viceversa) es un test inter-sensor muy exigente. Los patrones de textura no se generalizan sin más datos de calibración.</p>
-      </article>
-      <article class="card">
-        <h3>Calibracion probabilistica</h3>
-        <p>Se aplicó calibración isotónica (CalibratedClassifierCV) sobre el problema binario Cambisols vs resto. Las curvas de calibración y decisión están disponibles en Figuras Técnicas.</p>
-      </article>
-      <article class="card">
-        <h3>Validacion rigurosa</h3>
-        <p>Se usó Leave-One-Sensor-Out en lugar de K-Fold aleatorio. Esto evita data leakage temporal y refleja la capacidad real de generalización a sensores no vistos.</p>
-      </article>
+    <!-- ═══════════════════════════════════════════════════════ LÍNEA B: USDA -->
+    <section class="content-block" style="margin-top:32px;">
+      <p class="kicker">Línea B — Clasificación USDA Textural · Ralph Stephano Ronan · Ignacio Buey Ruiz</p>
+      <h2>Pipeline R + Weka: motor físico de velocidad de secado</h2>
+      <p style="color:var(--muted); margin-bottom:18px;">
+        A partir de los 7 scripts R, se construyó un dataset con 8 features físicas derivadas de la dinámica de secado del suelo: rangos de humedad y temperatura por franja de 3h y velocidades de secado a tres profundidades.
+      </p>
+      <div class="grid two" style="margin-bottom:16px;">
+        <article class="card">
+          <p class="kicker">Dataset Weka</p>
+          <ul style="margin:8px 0 0 16px; line-height:1.9; font-size:0.9rem; color:var(--muted);">
+            <li><strong>10.643</strong> instancias</li>
+            <li><strong>8 features</strong>: Franja · 3×Rango_Hum · Rango_Temp · 3×Vel_Secado</li>
+            <li>SMOTE 500% (k=5) para balanceo de clases</li>
+            <li>Split 66% entrenamiento / 34% test</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="kicker">Modelo · Random Forest 100 árboles</p>
+          <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:10px;">
+            <div style="text-align:center;">
+              <div style="font-size:2rem; font-weight:700; color:var(--accent);">78.36%</div>
+              <div style="font-size:0.8rem; color:var(--muted);">Accuracy</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:2rem; font-weight:700; color:var(--accent-2);">0.873</div>
+              <div style="font-size:0.8rem; color:var(--muted);">ROC AUC</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:2rem; font-weight:700; color:var(--accent-3);">0.784</div>
+              <div style="font-size:0.8rem; color:var(--muted);">F1 ponderado</div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="kicker">Distribución de clases USDA en el dataset Weka</p>
+      <div class="bars" style="margin-top:10px;">
+        <div class="bar-row"><span>Sandy Loam</span><div class="bar"><i style="width:45%;"></i></div><span class="bar-label">clase mayoritaria</span></div>
+        <div class="bar-row"><span>Loam</span><div class="bar"><i style="width:28%; background:var(--accent-2);"></i></div><span class="bar-label"></span></div>
+        <div class="bar-row"><span>Sandy Clay Loam</span><div class="bar"><i style="width:15%; background:var(--accent-3);"></i></div><span class="bar-label"></span></div>
+        <div class="bar-row"><span>Otras clases</span><div class="bar"><i style="width:12%; background:#7c3aed;"></i></div><span class="bar-label">con SMOTE</span></div>
+      </div>
+      <p class="note" style="margin-top:12px;">
+        A diferencia de la línea WRB, el balanceo con SMOTE permitió que el modelo reconociera clases minoritarias. El ROC AUC de 0.873 confirma que la <strong>dinámica de secado del suelo contiene información discriminante real</strong> sobre la textura USDA.
+      </p>
     </section>
 
-    <!-- Roadmap -->
+    <!-- Comparativa y conclusiones -->
     <section class="content-block">
-      <p class="kicker">Hoja de ruta</p>
-      <h2>Próximos pasos de investigación</h2>
-      <div class="timeline">
-        <div class="milestone">
-          <b>1</b>
-          <div>
-            <strong>SMOTE sobre clases minoritarias</strong>
-            <p>Oversampling de Arenosols, Luvisols, Fluvisols y Calcisols para equilibrar el dataset y mejorar el F1 de clases no Cambisols.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>2</b>
-          <div>
-            <strong>Ampliar a más sensores</strong>
-            <p>Con solo 2 sensores el test inter-sensor es extremo. Incorporar más puntos de muestreo mejorará la capacidad de generalización.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>3</b>
-          <div>
-            <strong>XGBoost / LightGBM</strong>
-            <p>Alternativas al Random Forest con mejor manejo del desbalance de clases y menor sobreajuste sensor-específico.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>4</b>
-          <div>
-            <strong>Explicabilidad SHAP</strong>
-            <p>Identificar qué profundidades y señales (VWC, VIC, Temp) discriminan más entre tipos de suelo.</p>
-          </div>
-        </div>
+      <p class="kicker">Conclusiones del proyecto</p>
+      <h2>Convergencia de los dos enfoques</h2>
+      <div class="grid two" style="margin-bottom:20px;">
+        <article class="card warn">
+          <h3>Por qué la accuracy WRB engaña</h3>
+          <p>Con 89.8% de muestras Cambisols, el clasificador aprende a predecir casi siempre esa clase. El F1-macro de 0.199 es la métrica honesta: las clases minoritarias no se detectan al cruzar entre sensores distintos sin recalibración.</p>
+        </article>
+        <article class="card warn">
+          <h3>Por qué el R² de textura es negativo</h3>
+          <p>Solo hay 2 sensores en la línea WRB. El test inter-sensor (X91 → X93) es extremo. Los patrones de textura no se generalizan entre localizaciones distintas sin más datos de calibración conjunta.</p>
+        </article>
+        <article class="card">
+          <h3>La señal existe — Weka lo demuestra</h3>
+          <p>La línea USDA obtiene ROC AUC = 0.873 con solo 8 features físicas. Esto valida la hipótesis central: <strong>la dinámica de humedad y temperatura del sensor Sentek sí contiene información discriminante sobre el tipo de suelo.</strong></p>
+        </article>
+        <article class="card">
+          <h3>Limitación compartida: pocos sensores</h3>
+          <p>Ambas líneas coinciden en la misma limitación estructural: con 2 sensores (WRB) o pocas fincas etiquetadas (USDA), la generalización es limitada. Más datos de campo son el siguiente paso natural.</p>
+        </article>
+      </div>
+
+      <div class="grid three">
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.05);">
+          <p style="font-size:2rem; margin:0 0 6px;">🧬</p>
+          <h3 style="font-size:0.95rem;">Hipótesis</h3>
+          <p style="font-size:0.85rem; color:var(--muted);">«Los sensores Sentek permiten identificar el tipo de suelo»</p>
+          <p style="font-weight:700; color:var(--accent); margin-top:6px;">✓ Aceptada condicionalmente</p>
+        </article>
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.05);">
+          <p style="font-size:2rem; margin:0 0 6px;">📐</p>
+          <h3 style="font-size:0.95rem;">Mejor resultado absoluto</h3>
+          <p style="font-size:0.85rem; color:var(--muted);">Línea USDA · Weka Random Forest</p>
+          <p style="font-weight:700; color:var(--accent); margin-top:6px;">ROC AUC = 0.873</p>
+        </article>
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.05);">
+          <p style="font-size:2rem; margin:0 0 6px;">🔬</p>
+          <h3 style="font-size:0.95rem;">Clave identificada</h3>
+          <p style="font-size:0.85rem; color:var(--muted);">Velocidad de secado por franja de 3h</p>
+          <p style="font-weight:700; color:var(--accent); margin-top:6px;">Feature más discriminante</p>
+        </article>
       </div>
     </section>
 
