@@ -105,6 +105,57 @@
       </article>
     </section>
 
+    <section class="content-block" style="margin-top: 8px;">
+      <p class="kicker">Entregable del equipo · Campus Digital FP</p>
+      <h2>Página web interactiva de investigación</h2>
+      <p style="color:var(--muted); line-height:1.72; max-width:720px; margin-bottom:20px;">
+        El equipo de investigación —&nbsp;<strong>Jorge Herraiz Soler</strong>, <strong>Ralph Stephano Ronan</strong>
+        e <strong>Ignacio Buey Ruiz</strong>&nbsp;— ha desarrollado esta página web como presentación completa
+        del proyecto. Integra las dos líneas de investigación (<strong>clasificación WRB</strong> en Python
+        y <strong>clasificación textural USDA</strong> en R&nbsp;+&nbsp;Weka) con gráficas interactivas
+        y resultados reales de los modelos, pensada para Spherag y para el tribunal evaluador de Campus Digital FP.
+      </p>
+      <div class="grid two" style="gap:14px;">
+        <article class="card" style="border-left:4px solid var(--accent);">
+          <h3>Gráficas interactivas</h3>
+          <ul style="margin:8px 0 0 16px; line-height:1.9; font-size:0.92rem;">
+            <li>Dashboard vivo con perfiles de humedad por profundidad</li>
+            <li>Triángulo textural USDA con datos reales del sensor</li>
+            <li>Distribución de clases WRB y USDA con filtros dinámicos</li>
+            <li>Curvas de calibración y de decisión del modelo LightGBM</li>
+          </ul>
+          <a class="action-link" href="dashboard.html">Abrir dashboard</a>
+        </article>
+        <article class="card" style="border-left:4px solid var(--accent);">
+          <h3>Figuras técnicas comentadas</h3>
+          <ul style="margin:8px 0 0 16px; line-height:1.9; font-size:0.92rem;">
+            <li>13 figuras diagnósticas del pipeline WRB (Python)</li>
+            <li>Matrices de correlación y PCA de señales Sentek</li>
+            <li>Perfiles de humedad y temperatura por clase de suelo</li>
+            <li>Distribución de missingness por profundidad y señal</li>
+          </ul>
+          <a class="action-link" href="figuras.html">Ver figuras</a>
+        </article>
+      </div>
+      <div class="grid three" style="gap:14px; margin-top:14px;">
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
+          <p style="font-size:2rem; margin:0 0 6px;">🧬</p>
+          <h3 style="font-size:0.95rem; margin-bottom:4px;">Clasificación WRB</h3>
+          <p style="font-size:0.85rem;">Jorge Herraiz · Python · LightGBM<br/><strong>F1-macro = 0.983</strong></p>
+        </article>
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
+          <p style="font-size:2rem; margin:0 0 6px;">📐</p>
+          <h3 style="font-size:0.95rem; margin-bottom:4px;">Clasificación USDA</h3>
+          <p style="font-size:0.85rem;">Ralph · Ignacio · R + Weka<br/><strong>ROC AUC = 0.873</strong></p>
+        </article>
+        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
+          <p style="font-size:2rem; margin:0 0 6px;">🌐</p>
+          <h3 style="font-size:0.95rem; margin-bottom:4px;">Web interactiva</h3>
+          <p style="font-size:0.85rem;">Jorge Herraiz · HTML · JS · CSS<br/><strong>GitHub Pages</strong></p>
+        </article>
+      </div>
+    </section>
+
   </main>
 </body>
 </html>
