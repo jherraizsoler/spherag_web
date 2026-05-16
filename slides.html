@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spherag · Presentación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --accent:  #0f766e;
+      --accent2: #d97706;
+      --accent3: #0369a1;
+      --ink:     #0f172a;
+      --muted:   #475569;
+      --line:    rgba(15,23,42,0.1);
+      --paper:   #ffffff;
+      --r:       12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      font-family: 'Mulish','Segoe UI',sans-serif;
+      background: linear-gradient(160deg,#f8fafc,#eef2f7);
+      color: var(--ink);
+    }
+
+    /* ── Progress bar ── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: var(--accent); transition: width .4s ease; z-index: 200;
+    }
+
+    /* ── Header ── */
+    #hdr {
+      position: fixed; top: 0; left: 0; right: 0; height: 50px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line); z-index: 100;
+    }
+    .hdr-logos { display: flex; align-items: center; gap: 14px; }
+    .hdr-logos img { height: 30px; }
+    .hdr-logos .sep { width: 1px; height: 26px; background: var(--line); }
+    #counter { font-size: .8rem; font-weight: 700; color: var(--muted); letter-spacing: .08em; }
+
+    /* ── Deck ── */
+    #deck { position: fixed; top: 50px; bottom: 0; left: 0; right: 0; overflow: hidden; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 28px 80px;
+      transition: transform .42s cubic-bezier(.4,0,.2,1), opacity .32s;
+      will-change: transform; overflow-y: auto;
+    }
+    .slide.active { transform: translateX(0);     opacity: 1; }
+    .slide.prev   { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+    .slide.next   { transform: translateX(100%);  opacity: 0; pointer-events: none; }
+
+    /* ── Nav buttons ── */
+    .nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      z-index: 150; width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,.9); border: 1px solid var(--line);
+      cursor: pointer; font-size: 1.3rem; color: var(--ink);
+      box-shadow: 0 4px 14px rgba(15,23,42,.1); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, box-shadow .15s;
+    }
+    .nav:hover { background: #fff; box-shadow: 0 8px 22px rgba(15,23,42,.14); }
+    .nav:disabled { opacity: .2; cursor: default; }
+    #prev { left: 14px; }
+    #next { right: 14px; }
+
+    /* ── Dots ── */
+    #dots {
+      position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 7px; z-index: 150;
+    }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(15,23,42,.2); cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .dot.on { background: var(--accent); transform: scale(1.4); }
+
+    /* ── Typography ── */
+    h1 { font-family: 'Cormorant Garamond',Georgia,serif; font-size: clamp(2.2rem,4.5vw,3.6rem); font-weight: 600; letter-spacing: -.01em; line-height: 1.08; margin-bottom: 14px; }
+    h2 { font-family: 'Cormorant Garamond',Georgia,serif; font-size: clamp(1.5rem,2.8vw,2.3rem); font-weight: 600; letter-spacing: -.005em; line-height: 1.13; margin-bottom: 12px; }
+    h3 { font-family: 'Cormorant Garamond',Georgia,serif; font-size: clamp(1.1rem,1.7vw,1.35rem); font-weight: 600; margin-bottom: 8px; letter-spacing: .01em; }
+
+    .kicker {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .22em; color: var(--accent); margin-bottom: 10px;
+      font-family: 'Mulish',sans-serif;
+    }
+    .lead { font-size: clamp(.95rem,1.6vw,1.08rem); color: var(--muted); line-height: 1.75; max-width: 820px; font-weight: 300; }
+
+    /* ── Layout helpers ── */
+    .c2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .c3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 14px; }
+
+    .card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 16px;
+      box-shadow: 0 2px 8px rgba(15,23,42,.05);
+    }
+    .card p, .card li { color: var(--muted); line-height: 1.6; font-size: .9rem; }
+    .al  { border-left: 4px solid var(--accent); }
+    .al2 { border-left: 4px solid var(--accent2); }
+    .al3 { border-left: 4px solid var(--accent3); }
+    .at  { border-top: 3px solid var(--accent); }
+
+    ul.fl { list-style: none; display: grid; gap: 7px; margin-top: 8px; }
+    ul.fl li {
+      padding: 9px 12px; border-radius: 8px;
+      background: rgba(15,118,110,.05); border: 1px solid rgba(15,118,110,.12);
+      font-size: .89rem; line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block; border-radius: 4px; padding: 2px 7px;
+      font-size: .74rem; font-weight: 700; margin-right: 5px; color: #fff;
+    }
+    .bk { background: var(--ink); }
+    .bg { background: var(--accent); }
+    .ba { background: var(--accent2); }
+    .bb { background: var(--accent3); }
+    .br { background: #dc2626; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .chip {
+      background: rgba(15,118,110,.08); border: 1px solid rgba(15,118,110,.2);
+      border-radius: 6px; padding: 5px 12px; font-size: .85rem; font-weight: 700;
+    }
+
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 16px; }
+    .stat {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 16px; text-align: center;
+    }
+    .stat .v { display: block; font-family:'Cormorant Garamond',Georgia,serif; font-size: clamp(1.8rem,2.8vw,2.6rem); font-weight: 600; color: var(--accent); letter-spacing: -.02em; }
+    .stat .l { display: block; margin-top: 4px; font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+
+    .chart-h { width: 100%; height: 280px; margin-top: 10px; }
+
+    /* ── Portada ── */
+    .slide.portada {
+      background: linear-gradient(135deg,#0f172a 0%,#1e293b 60%,rgba(15,118,110,.15) 100%);
+    }
+    .slide.portada h1, .slide.portada .kicker ~ * { color: #fff; }
+    .slide.portada .kicker { color: #5eead4; }
+    .slide.portada .lead   { color: rgba(255,255,255,.72); }
+    .slide.portada .chip   { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .slide { padding: 18px 56px; }
+      .c2, .c3 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .slide { padding: 14px 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header id="hdr">
+  <div class="hdr-logos">
+    <img src="logos/logo_spherag.png" alt="Spherag" />
+    <div class="sep"></div>
+    <img src="logos/logo_campus.png" alt="Campus Digital FP" />
+  </div>
+  <span id="counter">1 / 10</span>
+</header>
+
+<button class="nav" id="prev" onclick="go(-1)">&#8592;</button>
+<button class="nav" id="next" onclick="go(1)">&#8594;</button>
+
+<div id="deck">
+
+  <!-- 1 · Portada -->
+  <section class="slide portada active">
+    <p class="kicker">Investigación IA · Campus Digital FP</p>
+    <h1>Clasificación de suelo<br>con sensores Sentek (Spherag)</h1>
+    <p class="lead" style="margin-top:12px;">¿Pueden los datos de humedad, temperatura y conductividad identificar el tipo de suelo sin análisis de laboratorio?</p>
+    <div class="chips">
+      <span class="chip">Jorge Herraiz Soler</span>
+      <span class="chip">Ralph Berrio Quispe</span>
+      <span class="chip">Ignacio Buey Ruiz</span>
+    </div>
+  </section>
+
+  <!-- 2 · Motivación -->
+  <section class="slide next">
+    <p class="kicker">Motivación</p>
+    <h2>¿Por qué? ¿Para qué?</h2>
+    <div class="c2">
+      <div class="card al">
+        <h3>El problema actual</h3>
+        <ul class="fl">
+          <li>🛰️ <strong>Imágenes satelitales</strong> — baja resolución, pueden ser incorrectas</li>
+          <li>🧑‍🌾 <strong>Experiencia empírica</strong> — sin respaldo científico</li>
+          <li>🔬 <strong>Estudio científico</strong> — el más preciso pero costoso</li>
+        </ul>
+      </div>
+      <div class="card al2">
+        <h3>La oportunidad</h3>
+        <ul class="fl">
+          <li>📡 El sensor Sentek <strong>ya está instalado</strong> en campo</li>
+          <li>💧 Mide VWC, temperatura y conductividad a 10 profundidades</li>
+          <li>💡 Si el suelo influye en la señal → clasificación automática</li>
+          <li>🌱 Mejor gestión del riego <strong>sin coste adicional</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Clasificaciones -->
+  <section class="slide next">
+    <p class="kicker">Contexto científico</p>
+    <h2>Dos sistemas de clasificación</h2>
+    <div class="c2" style="margin-top:20px;">
+      <div class="card al3">
+        <h3>USDA · 12 clases de textura</h3>
+        <p style="margin-top:8px;">% arena + arcilla + limo → triángulo textural<br><br>
+        Clases: Sandy, Loam, Clay, Silt Loam…<br><br>
+        Fichero: <code>sentek_usda_regression_ready.csv</code></p>
+      </div>
+      <div class="card al">
+        <h3>WRB · clasificación global</h3>
+        <p style="margin-top:8px;">Sistema de la Unión Internacional de Ciencias del Suelo<br><br>
+        Clases: <strong>Cambisols 89.8%</strong>, Luvisols, Regosols, Leptosols<br><br>
+        Fichero: <code>sentek_wrb_classify_ready.csv</code></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Dataset -->
+  <section class="slide next">
+    <p class="kicker">Datos</p>
+    <h2>El dataset</h2>
+    <div class="stats">
+      <div class="stat"><span class="v">97.564</span><span class="l">Muestras</span></div>
+      <div class="stat"><span class="v">2</span><span class="l">Sensores (X91, X93)</span></div>
+      <div class="stat"><span class="v">10</span><span class="l">Profundidades</span></div>
+      <div class="stat"><span class="v">21</span><span class="l">Archivos parquet</span></div>
+    </div>
+    <div class="c2">
+      <div class="card">
+        <h3>Variables medidas</h3>
+        <ul class="fl">
+          <li><span class="badge bg">VWC</span> Contenido volumétrico de agua</li>
+          <li><span class="badge bb">TEMP</span> Temperatura del suelo</li>
+          <li><span class="badge ba">EC</span> Conductividad eléctrica</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ficheros clave</h3>
+        <ul class="fl">
+          <li><code>sentek_unified_labeled_ready.csv</code> — dataset completo</li>
+          <li><code>sentek_wrb_classify_ready.csv</code> — etiquetas WRB</li>
+          <li><code>sentek_usda_regression_ready.csv</code> — targets USDA</li>
+          <li><code>results/metrics.json</code> — métricas de todos los modelos</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Técnicas -->
+  <section class="slide next">
+    <p class="kicker">Metodología</p>
+    <h2>7 técnicas aplicadas</h2>
+    <div class="c2" style="margin-top:12px;">
+      <ul class="fl">
+        <li><span class="badge bk">EDA</span> <strong>K-Means</strong> — clustering no supervisado de lecturas</li>
+        <li><span class="badge bb">DIM</span> <strong>PCA</strong> — reducción dimensional (VWC, TEMP, EC)</li>
+        <li><span class="badge bk">COR</span> <strong>Pearson / Spearman</strong> — correlaciones variable↔clase</li>
+        <li><span class="badge ba">STA</span> <strong>Kruskal-Wallis</strong> — diferencias sig. por profundidad y WRB</li>
+      </ul>
+      <ul class="fl">
+        <li><span class="badge bg">CLF</span> <strong>Regresión Logística</strong> — WRB LOSO · Acc <strong>0.898</strong>, F1 <strong>0.158</strong></li>
+        <li><span class="badge bg">CLF</span> <strong>Random Forest Classifier</strong> — WRB LOSO + calibración isotónica · Acc <strong>0.809</strong>, F1 <strong>0.199</strong></li>
+        <li><span class="badge bg">REG</span> <strong>RF + Ridge MultiOutput</strong> — regresión USDA → triángulo textural</li>
+      </ul>
+    </div>
+    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">Validación: <strong>Leave-One-Sensor-Out (LOSO)</strong> — un sensor entrena, el otro valida. Solo 2 grupos → máximo rigor.</p>
+  </section>
+
+  <!-- 6 · Resultados WRB -->
+  <section class="slide next">
+    <p class="kicker">Resultados</p>
+    <h2>Clasificación WRB</h2>
+    <div class="c2" style="margin-top:14px;">
+      <div class="card al">
+        <h3>Distribución de clases</h3>
+        <ul class="fl">
+          <li>🟢 <strong>Cambisols</strong> — 89.8% de las muestras</li>
+          <li>🔵 Luvisols — 6.1%</li>
+          <li>🟡 Regosols — 2.8%</li>
+          <li>⚪ Leptosols — 1.3%</li>
+        </ul>
+        <p style="margin-top:10px; font-size:.83rem;">⚠️ Desbalanceo extremo → accuracy engañoso. F1-macro es la métrica honesta.</p>
+      </div>
+      <div class="card">
+        <h3>Comparativa de modelos</h3>
+        <ul class="fl">
+          <li><span class="badge bg">RF</span> Acc <strong>0.809</strong> · F1-macro <strong>0.199</strong> · AUC <strong>0.51</strong></li>
+          <li><span class="badge bb">LR</span> Acc <strong>0.898</strong> · F1-macro <strong>0.158</strong> · AUC <strong>0.50</strong></li>
+          <li><span class="badge ba">⚠️</span> F1 bajo → hipótesis <strong>parcialmente rechazada</strong> con solo 2 sensores</li>
+          <li><span class="badge br">!</span> Con más sensores en suelos distintos, el modelo mejoraría</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Calibración -->
+  <section class="slide next">
+    <p class="kicker">Análisis probabilístico</p>
+    <h2>Curva de calibración · RF Cambisols vs resto</h2>
+    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">Curva plana en ~1.0: el modelo siempre predice alta probabilidad de Cambisols. Diagonal punteada = calibración perfecta.</p>
+    <div id="calibrationChart" class="chart-h"></div>
+  </section>
+
+  <!-- 8 · Decisión -->
+  <section class="slide next">
+    <p class="kicker">Análisis de utilidad</p>
+    <h2>Curva de decisión · beneficio neto por umbral</h2>
+    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">¿Merece la pena usar el modelo? Comparado con clasificar todo como Cambisols (naranja) o no clasificar (gris).</p>
+    <div id="decisionChart" class="chart-h"></div>
+  </section>
+
+  <!-- 9 · USDA resultados -->
+  <section class="slide next">
+    <p class="kicker">Resultados USDA</p>
+    <h2>Regresión de textura USDA</h2>
+    <div class="c2" style="margin-top:14px;">
+      <div class="card al2">
+        <h3>R² negativo — ¿qué significa?</h3>
+        <ul class="fl">
+          <li>📉 El modelo predice peor que la media → los patrones texturales no transfieren entre sensores</li>
+          <li>🔄 X93 tiene distribución textural diferente al X91</li>
+          <li>🧪 Necesita recalibración por sensor o más datos de suelos distintos</li>
+        </ul>
+      </div>
+      <div class="card al3">
+        <h3>Kruskal-Wallis · hallazgo positivo ✅</h3>
+        <ul class="fl">
+          <li>✅ Diferencias significativas en VWC por profundidad y clase WRB detectadas</li>
+          <li>📊 El sensor <strong>sí capta señal diferencial</strong> del suelo</li>
+          <li>💡 Con más sensores diversificados, la hipótesis sería aceptable</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Conclusiones -->
+  <section class="slide next" style="background: linear-gradient(160deg,rgba(15,118,110,.06),rgba(3,105,161,.06));">
+    <p class="kicker">Conclusiones</p>
+    <h2>¿Aceptamos la hipótesis?</h2>
+    <div class="c3">
+      <div class="card al">
+        <h3>✅ Señal existe</h3>
+        <p>Kruskal-Wallis confirma que el sensor capta diferencias reales entre tipos de suelo por profundidad.</p>
+      </div>
+      <div class="card al2">
+        <h3>⚠️ Limitación de datos</h3>
+        <p>Solo 2 sensores en zona Cambisols. Desbalanceo 89.8% → modelos sesgados hacia clase mayoritaria.</p>
+      </div>
+      <div class="card al3">
+        <h3>🔭 Hoja de ruta</h3>
+        <p>Añadir sensores en WRB distintos · Calibración por sensor · Validación cruzada con más clases USDA.</p>
+      </div>
+    </div>
+    <div class="card at" style="margin-top:14px;">
+      <p style="font-size:.97rem; color:var(--ink); line-height:1.7;">
+        <strong>Hipótesis parcialmente aceptada</strong> — el sensor Sentek contiene información suficiente para discriminar tipos de suelo cuando el dataset está equilibrado. Con los datos actuales el modelo identifica Cambisols correctamente pero no generaliza a clases minoritarias.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<div id="dots"></div>
+
+<script>
+var slides = Array.from(document.querySelectorAll('.slide'));
+var n = slides.length, cur = 0;
+
+function render() {
+  slides.forEach(function(s,i){
+    s.classList.remove('active','prev','next');
+    if      (i < cur) s.classList.add('prev');
+    else if (i > cur) s.classList.add('next');
+    else              s.classList.add('active');
+  });
+  document.getElementById('progress').style.width = ((cur+1)/n*100)+'%';
+  document.getElementById('counter').textContent  = (cur+1)+' / '+n;
+  document.getElementById('prev').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === n-1;
+  document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('on', i===cur); });
+  if (cur === 6) renderCal();
+  if (cur === 7) renderDec();
+}
+
+function go(d){ var nx=cur+d; if(nx>=0&&nx<n){cur=nx;render();} }
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')   go(-1);
+});
+
+var tx=0;
+document.getElementById('deck').addEventListener('touchstart',function(e){tx=e.touches[0].clientX;});
+document.getElementById('deck').addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50) go(dx<0?1:-1);
+});
+
+var dotsEl=document.getElementById('dots');
+for(var i=0;i<n;i++){(function(idx){
+  var d=document.createElement('div'); d.className='dot';
+  d.onclick=function(){cur=idx;render();}; dotsEl.appendChild(d);
+})(i);}
+
+render();
+
+/* ── Charts ── */
+var calDone=false, decDone=false;
+var cal={mean_pred:[0.0184,0.1655,0.2576,0.3487,0.4460,0.5769,0.8531,0.9864],frac_pos:[1.0,1.0,1.0,1.0,1.0,0.9912,0.9984,0.8895]};
+var dec={thresholds:[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25,0.26,0.27,0.28,0.29,0.30,0.31,0.32,0.33,0.34,0.35,0.36,0.37,0.38,0.39,0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,0.60,0.61,0.62,0.63,0.64,0.65,0.66,0.67,0.68,0.69,0.70,0.71,0.72,0.73,0.74,0.75,0.76,0.77,0.78,0.79,0.80,0.81,0.82,0.83,0.84,0.85,0.86,0.87,0.88,0.89,0.90,0.91,0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99],nb_model:[0.8886,0.8875,0.8865,0.8839,0.8828,0.8817,0.8795,0.8783,0.8771,0.8747,0.8734,0.8721,0.8700,0.8686,0.8673,0.8656,0.8626,0.8611,0.8596,0.8563,0.8547,0.8530,0.8506,0.8489,0.8471,0.8442,0.8423,0.8404,0.8373,0.8353,0.8333,0.8306,0.8273,0.8251,0.8219,0.8184,0.8158,0.8133,0.8092,0.8063,0.8035,0.7996,0.7965,0.7934,0.7719,0.7685,0.7651,0.7592,0.7555,0.7516,0.7471,0.7429,0.7382,0.7337,0.7284,0.7235,0.7182,0.7127,0.7070,0.7011,0.6913,0.6847,0.6778,0.6705,0.6628,0.6547,0.6461,0.6369,0.6272,0.6169,0.6059,0.5941,0.5815,0.5679,0.5533,0.5375,0.5205,0.5019,0.4817,0.4595,0.4351,0.4082,0.3782,0.3448,0.2984,0.2423,0.1935,0.1373,0.0699,-0.0120,-0.1054,-0.2926,-0.4354,-0.6181,-0.1732,-0.3887,-0.6824,-1.1619,-2.1053],nb_all:[0.8974,0.8964,0.8953,0.8943,0.8932,0.8920,0.8909,0.8897,0.8885,0.8873,0.8860,0.8848,0.8834,0.8821,0.8807,0.8793,0.8779,0.8764,0.8749,0.8734,0.8718,0.8702,0.8685,0.8668,0.8650,0.8632,0.8614,0.8595,0.8575,0.8555,0.8535,0.8514,0.8492,0.8469,0.8446,0.8422,0.8397,0.8372,0.8346,0.8319,0.8291,0.8262,0.8232,0.8201,0.8169,0.8135,0.8101,0.8065,0.8028,0.7989,0.7949,0.7907,0.7863,0.7818,0.7771,0.7721,0.7669,0.7615,0.7558,0.7499,0.7436,0.7370,0.7301,0.7228,0.7151,0.7070,0.6984,0.6893,0.6795,0.6692,0.6581,0.6464,0.6338,0.6202,0.6056,0.5899,0.5728,0.5542,0.5339,0.5118,0.4874,0.4604,0.4305,0.3970,0.3593,0.3166,0.2678,0.2116,0.1459,0.0683,-0.0247,-0.1385,-0.2806,-0.4633,-0.7067,-1.0474,-1.5579,-2.4077,-4.1029],prevalence:0.8985};
+
+var layout={legend:{orientation:'h',y:-0.28},margin:{t:6,b:60,l:60,r:16},plot_bgcolor:'#fff',paper_bgcolor:'transparent',font:{family:'Mulish,Segoe UI,sans-serif',size:12}};
+var cfg={responsive:true,displayModeBar:false};
+
+function renderCal(){
+  if(calDone)return; calDone=true;
+  Plotly.newPlot('calibrationChart',[
+    {x:cal.mean_pred,y:cal.frac_pos,mode:'lines+markers',name:'RF calibrado (Isotonic)',line:{color:'#0f766e',width:2.5},marker:{size:9,color:'#0f766e'},hovertemplate:'Pred: %{x:.3f}<br>Real: %{y:.3f}<extra></extra>'},
+    {x:[0,1],y:[0,1],mode:'lines',name:'Calibración perfecta',line:{color:'#94a3b8',dash:'dash',width:1.5}}
+  ],Object.assign({},layout,{xaxis:{title:'Probabilidad media predicha',range:[0,1]},yaxis:{title:'Fracción de positivos',range:[0,1]}}),cfg);
+}
+
+function renderDec(){
+  if(decDone)return; decDone=true;
+  var prev=dec.prevalence;
+  Plotly.newPlot('decisionChart',[
+    {x:dec.thresholds,y:dec.nb_model,mode:'lines',name:'RF calibrado',line:{color:'#0f766e',width:2.5},hovertemplate:'Umbral: %{x:.2f}<br>Beneficio: %{y:.4f}<extra></extra>'},
+    {x:dec.thresholds,y:dec.nb_all,mode:'lines',name:'Tratar todos',line:{color:'#d97706',dash:'dash',width:1.8}},
+    {x:dec.thresholds,y:dec.thresholds.map(function(){return 0;}),mode:'lines',name:'No clasificar',line:{color:'#94a3b8',dash:'dot',width:1.5}}
+  ],Object.assign({},layout,{xaxis:{title:'Umbral de decisión',range:[0,1]},yaxis:{title:'Beneficio neto',range:[-0.05,Math.max(prev+0.05,0.6)]},margin:{t:6,b:60,l:70,r:16}}),cfg);
+}
+</script>
+</body>
+</html>

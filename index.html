@@ -23,68 +23,76 @@
       <a class="nav-link" href="datos.html">Datos y Pipeline</a>
       <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
-      <a class="nav-link" href="conclusiones.html">Resultados y Conclusiones</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
     </nav>
   </header>
 
   <main class="page-container">
 
     <section class="hero">
-      <p class="kicker">Investigación aplicada · Campus Digital FP</p>
-      <h1>Clasificación de tipos de suelo a partir de sensores multinivel (Spherag)</h1>
-      <p class="lead">
-        Investigación de inteligencia artificial realizada por alumnos del Campus Digital FP para probar si es posible identificar el tipo de suelo a partir de los datos tomados por sensores multinivel Sentek.
-      </p>
+      <p class="kicker">Investigación IA · Campus Digital FP</p>
+      <h1>Clasificación de suelo con sensores Sentek (Spherag)</h1>
+      <p class="lead">¿Pueden los datos de humedad, temperatura y conductividad del suelo identificar el tipo de suelo sin análisis de laboratorio?</p>
       <div class="chip-row">
         <span class="chip">Jorge Herraiz Soler</span>
-        <span class="chip">Ralph Stephano Ronan</span>
+        <span class="chip">Ralph Berrio Quispe</span>
         <span class="chip">Ignacio Buey Ruiz</span>
       </div>
     </section>
 
-    <section class="content-block">
-      <h2>Motivación y contexto</h2>
-      <p class="lead" style="margin-bottom:16px;">
-        Las distintas tipologías de suelo influyen considerablemente en la necesidad de riego, ritmo de crecimiento y rentabilidad de un cultivo. Actualmente, la identificación del tipo de suelo se realiza de distintas formas:
-      </p>
-      <ul class="steps">
-        <li><strong>Imágenes satelitales</strong> — en ocasiones sin la resolución adecuada o con datos incorrectos.</li>
-        <li><strong>Conocimiento empírico</strong> — el agricultor estima el tipo de suelo por experiencia, sin respaldo científico.</li>
-        <li><strong>Estudio científico</strong> — la más precisa, ofrece datos como la capacidad de campo, pero implica un coste económico mayor.</li>
-      </ul>
+    <section class="grid two">
+      <article class="card">
+        <h3>¿Por qué?</h3>
+        <p>Identificar el suelo por satélite o experiencia empírica es impreciso. Un estudio científico es caro. <strong>¿Pueden los datos del sensor sustituirlo?</strong></p>
+      </article>
+      <article class="card">
+        <h3>¿Para qué?</h3>
+        <p>Optimizar el riego, reducir costes y mejorar la rentabilidad del cultivo a partir de datos que el agricultor ya tiene instalados.</p>
+      </article>
     </section>
 
     <section class="grid two">
       <article class="card">
-        <h3>Clasificación USDA</h3>
-        <p>Sistema introducido por el Departamento de Agricultura de EE.UU. que establece <strong>12 clases de textura</strong> en función de los contenidos en arcilla, arena y limo.</p>
+        <h3>USDA · 12 clases de textura</h3>
+        <p>% arena + arcilla + limo → triángulo textural. Fichero: <code>sentek_usda_regression_ready.csv</code></p>
       </article>
       <article class="card">
-        <h3>Clasificación WRB</h3>
-        <p>Sistema establecido por la Unión Internacional de Ciencias del Suelo que tiene en cuenta <strong>multitud de características del suelo</strong> para su clasificación.</p>
+        <h3>WRB · clasificación internacional</h3>
+        <p>Tipo de suelo global (Cambisols, Luvisols…). Fichero: <code>sentek_wrb_classify_ready.csv</code></p>
       </article>
     </section>
 
     <section class="content-block">
-      <h2>Hipótesis de investigación</h2>
+      <h2>Hipótesis</h2>
       <p class="lead" style="margin-bottom:16px;">
-        <em>«Es posible identificar el tipo de suelo a partir de los datos tomados por un sensor multinivel Sentek.»</em>
+        <em>«Es posible identificar el tipo de suelo a partir de los datos del sensor Sentek.»</em>
       </p>
-      <p style="color:var(--muted); line-height:1.72; margin-bottom:16px;">
-        Los sensores Sentek registran humedad, temperatura y electroconductividad del suelo a distintas profundidades, lo que permite analizar la capacidad de penetración del agua y su pérdida, facilitando un uso eficiente del agua de riego.
-      </p>
-      <p style="color:var(--muted); line-height:1.72;">
-        Con el uso de las siguientes técnicas se pretende aceptar o rechazar la hipótesis:
-        <ul style="margin:10px 0 0 18px; line-height:1.9;">
-          <li><strong>K-Means clustering</strong> — agrupación no supervisada de lecturas de sensor para detectar patrones naturales en los datos.</li>
-          <li><strong>Análisis de Componentes Principales (PCA)</strong> — reducción de dimensionalidad sobre VWC, temperatura y conductividad eléctrica por profundidad.</li>
-          <li><strong>Análisis de correlaciones (Pearson / Spearman)</strong> — identificación de relaciones entre variables de sensor y clase de suelo.</li>
-          <li><strong>Test de Kruskal-Wallis</strong> — validación estadística de diferencias significativas entre clases WRB por profundidad.</li>
-          <li><strong>Regresión Logística</strong> — clasificación WRB con validación Leave-One-Sensor-Out (LOSO). Accuracy 0.898, F1-macro 0.158.</li>
-          <li><strong>Random Forest Classifier</strong> — clasificación WRB con LOSO. Accuracy 0.809, F1-macro 0.199. Con calibración isotónica de probabilidades.</li>
-          <li><strong>Random Forest Regressor + Ridge (MultiOutput)</strong> — regresión de % arena, arcilla y limo para derivar clase USDA mediante triángulo textural.</li>
-        </ul>
-      </p>
+
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Técnicas aplicadas</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li><strong>K-Means</strong> — clustering no supervisado de lecturas</li>
+            <li><strong>PCA</strong> — reducción dimensional (VWC, temp, EC)</li>
+            <li><strong>Pearson / Spearman</strong> — correlaciones sensor↔clase</li>
+            <li><strong>Kruskal-Wallis</strong> — diferencias sig. por profundidad</li>
+            <li><strong>Regresión Logística</strong> — clasificación WRB (LOSO)</li>
+            <li><strong>Random Forest Classifier</strong> — clasificación WRB (LOSO) + calibración isotónica</li>
+            <li><strong>RF Regressor + Ridge</strong> — regresión USDA multioutput → triángulo textural</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Hallazgos clave</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>📦 <strong>97.564 muestras</strong> · 2 sensores (X91, X93)</li>
+            <li>⚠️ <strong>Cambisols domina 89.8%</strong> → accuracy engañoso</li>
+            <li>✅ RF Classifier: F1-macro <strong>0.199</strong> · Acc <strong>0.809</strong></li>
+            <li>✅ Log. Reg.: F1-macro <strong>0.158</strong> · Acc <strong>0.898</strong></li>
+            <li>📉 USDA R² negativo → patrón textural no transfiere entre sensores sin recalibración</li>
+            <li>🔬 Kruskal-Wallis confirma diferencias significativas en VWC por capa y clase</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <section class="grid three">
@@ -105,53 +113,55 @@
       </article>
     </section>
 
-    <section class="content-block" style="margin-top: 8px;">
+    <section class="content-block" style="margin-top: 40px;">
       <p class="kicker">Entregable del equipo · Campus Digital FP</p>
       <h2>Página web interactiva de investigación</h2>
-      <p style="color:var(--muted); line-height:1.72; max-width:720px; margin-bottom:20px;">
-        El equipo de investigación —&nbsp;<strong>Jorge Herraiz Soler</strong>, <strong>Ralph Stephano Ronan</strong>
-        e <strong>Ignacio Buey Ruiz</strong>&nbsp;— ha desarrollado esta página web como presentación completa
-        del proyecto. Integra las dos líneas de investigación (<strong>clasificación WRB</strong> en Python
-        y <strong>clasificación textural USDA</strong> en R&nbsp;+&nbsp;Weka) con gráficas interactivas
-        y resultados reales de los modelos, pensada para Spherag y para el tribunal evaluador de Campus Digital FP.
+      <p style="max-width: 680px; line-height: 1.7; color: #444; margin-bottom: 24px;">
+        El equipo de investigación — <strong>Jorge Herraiz Soler</strong>, <strong>Ralph Berrio Quispe</strong>
+        e <strong>Ignacio Buey Ruiz</strong> — ha desarrollado esta página web como presentación completa
+        del proyecto. La web recoge las dos líneas de investigación (clasificación <strong>WRB</strong>
+        en Python y clasificación textural <strong>USDA</strong> en R + Weka) e integra todos los
+        resultados en un formato visual interactivo pensado para Spherag y para el tribunal evaluador
+        de Campus Digital FP.
       </p>
-      <div class="grid two" style="gap:14px;">
-        <article class="card" style="border-left:4px solid var(--accent);">
+      <div class="grid two" style="gap: 16px;">
+        <article class="card" style="border-left: 4px solid #1B6B45;">
           <h3>Gráficas interactivas</h3>
-          <ul style="margin:8px 0 0 16px; line-height:1.9; font-size:0.92rem;">
+          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
             <li>Dashboard vivo con perfiles de humedad por profundidad</li>
             <li>Triángulo textural USDA con datos reales del sensor</li>
             <li>Distribución de clases WRB y USDA con filtros dinámicos</li>
-            <li>Curvas de calibración y de decisión del modelo LightGBM</li>
+            <li>Evolución temporal de la señal VWC por franja horaria</li>
           </ul>
-          <a class="action-link" href="dashboard.html">Abrir dashboard</a>
+          <a class="action-link" href="dashboard.html" style="display:inline-block; margin-top: 12px;">Abrir dashboard</a>
         </article>
-        <article class="card" style="border-left:4px solid var(--accent);">
+        <article class="card" style="border-left: 4px solid #1B6B45;">
           <h3>Figuras técnicas comentadas</h3>
-          <ul style="margin:8px 0 0 16px; line-height:1.9; font-size:0.92rem;">
+          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
             <li>13 figuras diagnósticas del pipeline WRB (Python)</li>
             <li>Matrices de correlación y PCA de señales Sentek</li>
+            <li>Curvas de calibración y curvas de decisión del modelo</li>
             <li>Perfiles de humedad y temperatura por clase de suelo</li>
-            <li>Distribución de missingness por profundidad y señal</li>
           </ul>
-          <a class="action-link" href="figuras.html">Ver figuras</a>
+          <a class="action-link" href="figuras.html" style="display:inline-block; margin-top: 12px;">Ver figuras</a>
         </article>
       </div>
-      <div class="grid three" style="gap:14px; margin-top:14px;">
-        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
-          <p style="font-size:2rem; margin:0 0 6px;">🧬</p>
-          <h3 style="font-size:0.95rem; margin-bottom:4px;">Clasificación WRB</h3>
-          <p style="font-size:0.85rem;">Jorge Herraiz · Python · LightGBM<br/><strong>F1-macro = 0.983</strong></p>
+
+      <div class="grid three" style="gap: 16px; margin-top: 16px;">
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">🧬</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación WRB</h3>
+          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · Python · LightGBM<br/>F1-macro = 0.983</p>
         </article>
-        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
-          <p style="font-size:2rem; margin:0 0 6px;">📐</p>
-          <h3 style="font-size:0.95rem; margin-bottom:4px;">Clasificación USDA</h3>
-          <p style="font-size:0.85rem;">Ralph · Ignacio · R + Weka<br/><strong>ROC AUC = 0.873</strong></p>
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">📐</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación USDA</h3>
+          <p style="font-size: 0.85rem; color: #555;">Ralph · Ignacio · R + Weka<br/>ROC AUC = 0.873</p>
         </article>
-        <article class="card" style="text-align:center; background:rgba(15,118,110,0.04);">
-          <p style="font-size:2rem; margin:0 0 6px;">🌐</p>
-          <h3 style="font-size:0.95rem; margin-bottom:4px;">Web interactiva</h3>
-          <p style="font-size:0.85rem;">Jorge Herraiz · HTML · JS · CSS<br/><strong>GitHub Pages</strong></p>
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">🌐</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Web interactiva</h3>
+          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · HTML · JS · CSS<br/>Presentación integrada</p>
         </article>
       </div>
     </section>
