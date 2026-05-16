@@ -235,7 +235,7 @@
       <div class="card al">
         <h3>WRB · clasificación global</h3>
         <p style="margin-top:8px;">Sistema de la Unión Internacional de Ciencias del Suelo<br><br>
-        Clases: <strong>Cambisols 89.8%</strong>, Luvisols, Regosols, Leptosols<br><br>
+        Clases: <strong>Cambisols 92.1%</strong>, Luvisols, Arenosols, Fluvisols, Calcisols<br><br>
         Fichero: <code>sentek_wrb_classify_ready.csv</code></p>
       </div>
     </div>
@@ -246,9 +246,9 @@
     <p class="kicker">Datos</p>
     <h2>El dataset</h2>
     <div class="stats">
-      <div class="stat"><span class="v">97.564</span><span class="l">Muestras</span></div>
-      <div class="stat"><span class="v">2</span><span class="l">Sensores (X91, X93)</span></div>
-      <div class="stat"><span class="v">10</span><span class="l">Profundidades</span></div>
+      <div class="stat"><span class="v">7.591</span><span class="l">Filas WRB etiquetadas</span></div>
+      <div class="stat"><span class="v">4</span><span class="l">Sensores únicos</span></div>
+      <div class="stat"><span class="v">9</span><span class="l">Profundidades activas</span></div>
       <div class="stat"><span class="v">21</span><span class="l">Archivos parquet</span></div>
     </div>
     <div class="c2">
@@ -263,9 +263,9 @@
       <div class="card">
         <h3>Ficheros clave</h3>
         <ul class="fl">
-          <li><code>sentek_unified_labeled_ready.csv</code> — dataset completo</li>
           <li><code>sentek_wrb_classify_ready.csv</code> — etiquetas WRB</li>
           <li><code>sentek_usda_regression_ready.csv</code> — targets USDA</li>
+          <li><code>sentek_predict_ready.csv</code> — predicción sin etiqueta</li>
           <li><code>results/metrics.json</code> — métricas de todos los modelos</li>
         </ul>
       </div>
@@ -284,36 +284,37 @@
         <li><span class="badge ba">STA</span> <strong>Kruskal-Wallis</strong> — diferencias sig. por profundidad y WRB</li>
       </ul>
       <ul class="fl">
-        <li><span class="badge bg">CLF</span> <strong>Regresión Logística</strong> — WRB LOSO · Acc <strong>0.898</strong>, F1 <strong>0.158</strong></li>
-        <li><span class="badge bg">CLF</span> <strong>Random Forest Classifier</strong> — WRB LOSO + calibración isotónica · Acc <strong>0.809</strong>, F1 <strong>0.199</strong></li>
+        <li><span class="badge bg">CLF</span> <strong>LightGBM</strong> — WRB LOSO · Acc <strong>0.999</strong>, F1-macro <strong>0.981</strong></li>
+        <li><span class="badge bg">CLF</span> <strong>XGBoost</strong> — WRB LOSO · Acc <strong>0.998</strong>, F1-macro <strong>0.977</strong></li>
+        <li><span class="badge bb">CLF</span> <strong>Random Forest</strong> — WRB LOSO · Acc <strong>0.713</strong>, F1-macro <strong>0.414</strong></li>
         <li><span class="badge bg">REG</span> <strong>RF + Ridge MultiOutput</strong> — regresión USDA → triángulo textural</li>
       </ul>
     </div>
-    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">Validación: <strong>Leave-One-Sensor-Out (LOSO)</strong> — un sensor entrena, el otro valida. Solo 2 grupos → máximo rigor.</p>
+    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">Validación: <strong>Leave-One-Sensor-Out (LOSO)</strong> para generalización a sensor no visto, y Split 66/34 + SMOTE para comparativa experimental.</p>
   </section>
 
   <!-- 6 · Resultados WRB -->
   <section class="slide next">
     <p class="kicker">Resultados</p>
-    <h2>Clasificación WRB</h2>
+    <h2>Resultados WRB</h2>
     <div class="c2" style="margin-top:14px;">
       <div class="card al">
         <h3>Distribución de clases</h3>
         <ul class="fl">
-          <li>🟢 <strong>Cambisols</strong> — 89.8% de las muestras</li>
-          <li>🔵 Luvisols — 6.1%</li>
-          <li>🟡 Regosols — 2.8%</li>
-          <li>⚪ Leptosols — 1.3%</li>
+          <li>🟢 <strong>Cambisols</strong> — 92.1% de las muestras</li>
+          <li>🔵 Luvisols — 4.7%</li>
+          <li>🟡 Arenosols y Fluvisols — 1.3% c/u</li>
+          <li>⚪ Calcisols — 0.6%</li>
         </ul>
         <p style="margin-top:10px; font-size:.83rem;">⚠️ Desbalanceo extremo → accuracy engañoso. F1-macro es la métrica honesta.</p>
       </div>
       <div class="card">
         <h3>Comparativa de modelos</h3>
         <ul class="fl">
-          <li><span class="badge bg">RF</span> Acc <strong>0.809</strong> · F1-macro <strong>0.199</strong> · AUC <strong>0.51</strong></li>
-          <li><span class="badge bb">LR</span> Acc <strong>0.898</strong> · F1-macro <strong>0.158</strong> · AUC <strong>0.50</strong></li>
-          <li><span class="badge ba">⚠️</span> F1 bajo → hipótesis <strong>parcialmente rechazada</strong> con solo 2 sensores</li>
-          <li><span class="badge br">!</span> Con más sensores en suelos distintos, el modelo mejoraría</li>
+          <li><span class="badge bg">LGBM</span> LOSO: Acc <strong>0.999</strong> · F1-macro <strong>0.981</strong></li>
+          <li><span class="badge bb">XGB</span> LOSO: Acc <strong>0.998</strong> · F1-macro <strong>0.977</strong></li>
+          <li><span class="badge ba">RF</span> Split+SMOTE: F1-macro <strong>0.987</strong> · ROC AUC <strong>0.992</strong></li>
+          <li><span class="badge bg">OK</span> Hipótesis WRB <strong>confirmada</strong> en generalización LOSO</li>
         </ul>
       </div>
     </div>
@@ -338,13 +339,15 @@
   <!-- 9 · USDA resultados -->
   <section class="slide next">
     <p class="kicker">Resultados USDA</p>
-    <h2>Regresión de textura USDA</h2>
+    <h2>Resultados USDA</h2>
     <div class="c2" style="margin-top:14px;">
       <div class="card al2">
         <h3>R² negativo — ¿qué significa?</h3>
         <ul class="fl">
+          <li>📈 KFold-5: R2 medio <strong>0.796</strong> (interpolación en dominio conocido)</li>
+          <li>📉 LOSO: R2 medio <strong>-2.735</strong> (falla al cambiar de sensor)</li>
           <li>📉 El modelo predice peor que la media → los patrones texturales no transfieren entre sensores</li>
-          <li>🔄 X93 tiene distribución textural diferente al X91</li>
+          <li>🔄 Se necesita más cobertura de sensores y contextos edáficos</li>
           <li>🧪 Necesita recalibración por sensor o más datos de suelos distintos</li>
         </ul>
       </div>
@@ -370,7 +373,7 @@
       </div>
       <div class="card al2">
         <h3>⚠️ Limitación de datos</h3>
-        <p>Solo 2 sensores en zona Cambisols. Desbalanceo 89.8% → modelos sesgados hacia clase mayoritaria.</p>
+        <p>Desbalanceo WRB severo (Cambisols 92.1%). USDA aún no transfiere entre sensores en validación LOSO.</p>
       </div>
       <div class="card al3">
         <h3>🔭 Hoja de ruta</h3>
@@ -379,7 +382,7 @@
     </div>
     <div class="card at" style="margin-top:14px;">
       <p style="font-size:.97rem; color:var(--ink); line-height:1.7;">
-        <strong>Hipótesis parcialmente aceptada</strong> — el sensor Sentek contiene información suficiente para discriminar tipos de suelo cuando el dataset está equilibrado. Con los datos actuales el modelo identifica Cambisols correctamente pero no generaliza a clases minoritarias.
+        <strong>Hipótesis confirmada para WRB</strong> — la señal Sentek discrimina tipo de suelo con F1-macro 0.981 en LOSO. Para USDA, la generalización sigue pendiente (R2 LOSO negativo), por lo que el roadmap prioriza más sensores y recalibración intersensor.
       </p>
     </div>
   </section>

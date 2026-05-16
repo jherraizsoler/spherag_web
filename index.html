@@ -84,11 +84,11 @@
         <article class="card">
           <h3>Hallazgos clave</h3>
           <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
-            <li>📦 <strong>97.564 muestras</strong> · 2 sensores (X91, X93)</li>
-            <li>⚠️ <strong>Cambisols domina 89.8%</strong> → accuracy engañoso</li>
-            <li>✅ RF Classifier: F1-macro <strong>0.199</strong> · Acc <strong>0.809</strong></li>
-            <li>✅ Log. Reg.: F1-macro <strong>0.158</strong> · Acc <strong>0.898</strong></li>
-            <li>📉 USDA R² negativo → patrón textural no transfiere entre sensores sin recalibración</li>
+            <li>📦 21 parquet y 305,842 bloques Sentek procesados</li>
+            <li>⚠️ <strong>Cambisols domina 92.1%</strong> en WRB etiquetado</li>
+            <li>✅ WRB LOSO: LightGBM F1-macro <strong>0.981</strong> · Balanced Acc <strong>0.978</strong></li>
+            <li>✅ WRB Split+SMOTE: RF F1-macro <strong>0.987</strong> · ROC AUC <strong>0.992</strong></li>
+            <li>📉 USDA: R2 medio KFold <strong>0.796</strong> vs LOSO <strong>-2.735</strong></li>
             <li>🔬 Kruskal-Wallis confirma diferencias significativas en VWC por capa y clase</li>
           </ul>
         </article>
@@ -98,7 +98,7 @@
     <section class="grid three">
       <article class="card">
         <h3>Datos y Pipeline</h3>
-        <p>Fuentes, integración temporal, 21 archivos parquet y 97.564 muestras unificadas.</p>
+        <p>Fuentes, integración temporal y datasets listos para modelado (WRB/USDA/predicción).</p>
         <a class="action-link" href="datos.html">Ver datos</a>
       </article>
       <article class="card">
@@ -111,6 +111,29 @@
         <p>11 figuras diagnósticas: distribución WRB, missingness, PCA, correlaciones y textura USDA.</p>
         <a class="action-link" href="figuras.html">Ver figuras</a>
       </article>
+    </section>
+
+    <section class="content-block">
+      <p class="kicker">Resultados</p>
+      <h2>Resultados WRB y Resultados USDA</h2>
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Resultados WRB</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>LOSO: LightGBM F1-macro <strong>0.981</strong> y balanced accuracy <strong>0.978</strong>.</li>
+            <li>Split 66/34 + SMOTE 500%: RF F1-macro <strong>0.987</strong> y ROC AUC <strong>0.992</strong>.</li>
+            <li><strong>WRB funciona bien</strong> y mantiene consistencia en validación exigente.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Resultados USDA</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>KFold: R2 medio <strong>0.796</strong> (escenario fácil).</li>
+            <li>LOSO: R2 medio <strong>-2.735</strong> (sensor no visto).</li>
+            <li><strong>USDA aún no está listo</strong> para despliegue robusto entre sensores distintos.</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <section class="content-block" style="margin-top: 40px;">
@@ -151,7 +174,7 @@
         <article class="card" style="text-align: center; background: #f0f8f4;">
           <p style="font-size: 2rem; margin: 0;">🧬</p>
           <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación WRB</h3>
-          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · Python · LightGBM<br/>F1-macro = 0.983</p>
+          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · Python · LightGBM<br/>F1-macro LOSO = 0.981</p>
         </article>
         <article class="card" style="text-align: center; background: #f0f8f4;">
           <p style="font-size: 2rem; margin: 0;">📐</p>
