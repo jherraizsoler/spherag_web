@@ -146,6 +146,52 @@
 
     .chart-h { width: 100%; height: 280px; margin-top: 10px; }
 
+    .visual-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .visual-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(15,23,42,.05);
+    }
+    .steps-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .step-box {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      background: #fff;
+    }
+    .step-box b { display: block; margin-top: 4px; font-size: .92rem; }
+    .step-box p { font-size: .82rem; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+    .step-arrow { font-size: 1.3rem; color: var(--accent); font-weight: 700; }
+    .legend-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .legend-mini span {
+      font-size: .8rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15,118,110,.08);
+      border: 1px solid rgba(15,118,110,.2);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     /* ── Portada ── */
     .slide.portada {
       background: linear-gradient(135deg,#0f172a 0%,#1e293b 60%,rgba(15,118,110,.15) 100%);
@@ -159,6 +205,9 @@
     @media (max-width: 860px) {
       .slide { padding: 18px 56px; }
       .c2, .c3 { grid-template-columns: 1fr; }
+      .visual-grid { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+      .step-arrow { display: none; }
       .stats { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 520px) {
@@ -176,7 +225,7 @@
     <div class="sep"></div>
     <img src="logos/logo_campus.png" alt="Campus Digital FP" />
   </div>
-  <span id="counter">1 / 10</span>
+  <span id="counter">1 / 11</span>
 </header>
 
 <button class="nav" id="prev" onclick="go(-1)">&#8592;</button>
@@ -223,6 +272,78 @@
 
   <!-- 3 · Clasificaciones -->
   <section class="slide next">
+    <p class="kicker">Guía visual para no técnicos</p>
+    <h2>Cómo entender el proyecto en 30 segundos</h2>
+    <div class="visual-grid">
+      <article class="visual-card">
+        <h3>Qué hacemos exactamente</h3>
+        <div class="steps-row">
+          <div class="step-box">
+            <svg viewBox="0 0 120 70" width="100%" height="44" aria-hidden="true">
+              <rect x="5" y="28" width="110" height="30" rx="8" fill="#e2e8f0" stroke="#94a3b8"/>
+              <line x1="16" y1="58" x2="16" y2="14" stroke="#0f766e" stroke-width="3"/>
+              <line x1="38" y1="58" x2="38" y2="18" stroke="#0f766e" stroke-width="3"/>
+              <line x1="60" y1="58" x2="60" y2="11" stroke="#0f766e" stroke-width="3"/>
+              <line x1="82" y1="58" x2="82" y2="20" stroke="#0f766e" stroke-width="3"/>
+              <line x1="104" y1="58" x2="104" y2="15" stroke="#0f766e" stroke-width="3"/>
+            </svg>
+            <b>1. Medimos</b>
+            <p>El sensor toma datos en varias profundidades.</p>
+          </div>
+          <span class="step-arrow">→</span>
+          <div class="step-box">
+            <svg viewBox="0 0 120 70" width="100%" height="44" aria-hidden="true">
+              <rect x="8" y="8" width="104" height="54" rx="8" fill="#f8fafc" stroke="#94a3b8"/>
+              <rect x="18" y="20" width="84" height="6" fill="#0f766e" opacity="0.25"/>
+              <rect x="18" y="31" width="68" height="6" fill="#0f766e" opacity="0.45"/>
+              <rect x="18" y="42" width="52" height="6" fill="#0f766e" opacity="0.75"/>
+            </svg>
+            <b>2. Comparamos</b>
+            <p>La IA detecta patrones repetidos en esas señales.</p>
+          </div>
+          <span class="step-arrow">→</span>
+          <div class="step-box">
+            <svg viewBox="0 0 120 70" width="100%" height="44" aria-hidden="true">
+              <rect x="12" y="10" width="96" height="50" rx="10" fill="#ecfeff" stroke="#0f766e"/>
+              <text x="60" y="31" text-anchor="middle" font-size="11" fill="#0f172a" font-family="Mulish, sans-serif">Tipo de suelo</text>
+              <text x="60" y="46" text-anchor="middle" font-size="12" fill="#0f766e" font-weight="700" font-family="Mulish, sans-serif">Cambisol / Luvisol</text>
+            </svg>
+            <b>3. Clasificamos</b>
+            <p>El sistema propone el tipo de suelo más probable.</p>
+          </div>
+        </div>
+        <div class="legend-mini">
+          <span>VWC = agua</span>
+          <span>TEMP = temperatura</span>
+          <span>VIC/EC = conductividad</span>
+        </div>
+      </article>
+
+      <article class="visual-card al3">
+        <h3>Cómo leer las gráficas después</h3>
+        <svg viewBox="0 0 360 220" width="100%" height="170" aria-hidden="true" style="margin-top:8px; border:1px solid var(--line); border-radius:10px; background:#fff;">
+          <rect x="0" y="0" width="360" height="220" fill="#ffffff"/>
+          <rect x="0" y="152" width="360" height="68" fill="#f1f5f9"/>
+          <line x1="60" y1="26" x2="60" y2="188" stroke="#94a3b8"/>
+          <line x1="60" y1="188" x2="332" y2="188" stroke="#94a3b8"/>
+          <polyline points="70,160 105,148 140,132 175,122 210,106 245,92 280,79 315,70" fill="none" stroke="#0f766e" stroke-width="3"/>
+          <circle cx="175" cy="122" r="5" fill="#d97706"/>
+          <text x="186" y="116" font-size="11" fill="#0f172a" font-family="Mulish, sans-serif">patrón útil</text>
+          <text x="68" y="204" font-size="11" fill="#475569" font-family="Mulish, sans-serif">profundidad</text>
+          <text x="16" y="30" font-size="11" fill="#475569" font-family="Mulish, sans-serif">señal</text>
+          <text x="16" y="168" font-size="11" fill="#475569" font-family="Mulish, sans-serif">suelo</text>
+        </svg>
+        <ul class="fl" style="margin-top:10px;">
+          <li>Si dos suelos muestran curvas distintas por profundidad, el modelo puede separarlos mejor.</li>
+          <li>Si una clase domina (ej. Cambisols), la accuracy sola engaña y se revisa también F1-macro.</li>
+          <li>SMOTE 500% se usó para reforzar clases minoritarias en el escenario comparable con Weka.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4 · Clasificaciones -->
+  <section class="slide next">
     <p class="kicker">Contexto científico</p>
     <h2>Dos sistemas de clasificación</h2>
     <div class="c2" style="margin-top:20px;">
@@ -241,38 +362,40 @@
     </div>
   </section>
 
-  <!-- 4 · Dataset -->
+  <!-- 5 · Dataset -->
   <section class="slide next">
     <p class="kicker">Datos</p>
-    <h2>El dataset</h2>
+    <h2>Dataset Sentek: de logs a filas útiles</h2>
     <div class="stats">
-      <div class="stat"><span class="v">7.591</span><span class="l">Filas WRB etiquetadas</span></div>
-      <div class="stat"><span class="v">4</span><span class="l">Sensores únicos</span></div>
-      <div class="stat"><span class="v">9</span><span class="l">Profundidades activas</span></div>
-      <div class="stat"><span class="v">21</span><span class="l">Archivos parquet</span></div>
+      <div class="stat"><span class="v">21</span><span class="l">Logs .parquet Sentek</span></div>
+      <div class="stat"><span class="v">305.842</span><span class="l">Bloques procesados</span></div>
+      <div class="stat"><span class="v">4</span><span class="l">Sensores (modelos X91/X93)</span></div>
+      <div class="stat"><span class="v">58</span><span class="l">Features finales</span></div>
     </div>
     <div class="c2">
       <div class="card">
-        <h3>Variables medidas</h3>
+        <h3>Qué medían los sensores Sentek</h3>
         <ul class="fl">
           <li><span class="badge bg">VWC</span> Contenido volumétrico de agua</li>
           <li><span class="badge bb">TEMP</span> Temperatura del suelo</li>
-          <li><span class="badge ba">EC</span> Conductividad eléctrica</li>
+          <li><span class="badge ba">VIC/EC</span> Conductividad (señal eléctrica del suelo)</li>
+          <li><span class="badge bk">Depth</span> 9-10 profundidades por perfil (según disponibilidad)</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Ficheros clave</h3>
+        <h3>Filas útiles para investigación (tras limpieza)</h3>
         <ul class="fl">
-          <li><code>sentek_wrb_classify_ready.csv</code> — etiquetas WRB</li>
-          <li><code>sentek_usda_regression_ready.csv</code> — targets USDA</li>
-          <li><code>sentek_predict_ready.csv</code> — predicción sin etiqueta</li>
-          <li><code>results/metrics.json</code> — métricas de todos los modelos</li>
+          <li><code>sentek_wrb_classify_ready.csv</code> → <strong>7.591</strong> filas etiquetadas (WRB)</li>
+          <li><code>sentek_usda_regression_ready.csv</code> → <strong>10.473</strong> filas con targets texturales (USDA)</li>
+          <li><code>sentek_predict_ready.csv</code> → <strong>14.339</strong> filas para predicción sin etiqueta</li>
+          <li>Se consideran útiles porque pasan filtros de calidad, consistencia temporal y enlace correcto sensor-etiqueta.</li>
         </ul>
       </div>
     </div>
+    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">No es solo WRB o USDA: ambas clasificaciones salen de la misma base Sentek depurada, por eso el foco del estudio es la calidad del dataset de entrada.</p>
   </section>
 
-  <!-- 5 · Técnicas -->
+  <!-- 6 · Técnicas -->
   <section class="slide next">
     <p class="kicker">Metodología</p>
     <h2>7 técnicas aplicadas</h2>
@@ -285,25 +408,24 @@
       </ul>
       <ul class="fl">
         <li><span class="badge bg">CLF</span> <strong>LightGBM</strong> — WRB LOSO · Acc <strong>0.999</strong>, F1-macro <strong>0.981</strong></li>
-        <li><span class="badge bg">CLF</span> <strong>XGBoost</strong> — WRB LOSO · Acc <strong>0.998</strong>, F1-macro <strong>0.977</strong></li>
-        <li><span class="badge bb">CLF</span> <strong>Random Forest</strong> — WRB LOSO · Acc <strong>0.713</strong>, F1-macro <strong>0.414</strong></li>
+        <li><span class="badge bg">CLF</span> <strong>Random Forest + SMOTE 500%</strong> — Split 66/34 · Acc <strong>0.999</strong>, F1-macro <strong>0.987</strong>, AUC <strong>0.992</strong></li>
         <li><span class="badge bg">REG</span> <strong>RF + Ridge MultiOutput</strong> — regresión USDA → triángulo textural</li>
       </ul>
     </div>
-    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">Validación: <strong>Leave-One-Sensor-Out (LOSO)</strong> para generalización a sensor no visto, y Split 66/34 + SMOTE para comparativa experimental.</p>
+    <p style="margin-top:12px; color:var(--muted); font-size:.85rem;">Validación: <strong>Leave-One-Sensor-Out (LOSO)</strong> — se entrena con 3 sensores y se valida en 1 sensor no visto.</p>
   </section>
 
-  <!-- 6 · Resultados WRB -->
+  <!-- 7 · Resultados WRB -->
   <section class="slide next">
     <p class="kicker">Resultados</p>
-    <h2>Resultados WRB</h2>
+    <h2>Clasificación WRB</h2>
     <div class="c2" style="margin-top:14px;">
       <div class="card al">
         <h3>Distribución de clases</h3>
         <ul class="fl">
           <li>🟢 <strong>Cambisols</strong> — 92.1% de las muestras</li>
           <li>🔵 Luvisols — 4.7%</li>
-          <li>🟡 Arenosols y Fluvisols — 1.3% c/u</li>
+          <li>🟡 Arenosols / Fluvisols — 1.3% cada clase</li>
           <li>⚪ Calcisols — 0.6%</li>
         </ul>
         <p style="margin-top:10px; font-size:.83rem;">⚠️ Desbalanceo extremo → accuracy engañoso. F1-macro es la métrica honesta.</p>
@@ -311,58 +433,56 @@
       <div class="card">
         <h3>Comparativa de modelos</h3>
         <ul class="fl">
-          <li><span class="badge bg">LGBM</span> LOSO: Acc <strong>0.999</strong> · F1-macro <strong>0.981</strong></li>
-          <li><span class="badge bb">XGB</span> LOSO: Acc <strong>0.998</strong> · F1-macro <strong>0.977</strong></li>
-          <li><span class="badge ba">RF</span> Split+SMOTE: F1-macro <strong>0.987</strong> · ROC AUC <strong>0.992</strong></li>
-          <li><span class="badge bg">OK</span> Hipótesis WRB <strong>confirmada</strong> en generalización LOSO</li>
+          <li><span class="badge bg">LightGBM (LOSO)</span> Acc <strong>0.999</strong> · F1-macro <strong>0.981</strong> · BalAcc <strong>0.978</strong></li>
+          <li><span class="badge bb">RF + SMOTE500 (Split)</span> Acc <strong>0.999</strong> · F1-macro <strong>0.987</strong> · AUC <strong>0.992</strong></li>
+          <li><span class="badge ba">✅</span> WRB funciona bien incluso en validación dura LOSO</li>
+          <li><span class="badge br">!</span> El reto principal sigue siendo USDA (generalización entre sensores)</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 7 · Calibración -->
+  <!-- 8 · USDA resultados -->
   <section class="slide next">
-    <p class="kicker">Análisis probabilístico</p>
-    <h2>Curva de calibración · RF Cambisols vs resto</h2>
-    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">Curva plana en ~1.0: el modelo siempre predice alta probabilidad de Cambisols. Diagonal punteada = calibración perfecta.</p>
-    <div id="calibrationChart" class="chart-h"></div>
-  </section>
-
-  <!-- 8 · Decisión -->
-  <section class="slide next">
-    <p class="kicker">Análisis de utilidad</p>
-    <h2>Curva de decisión · beneficio neto por umbral</h2>
-    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">¿Merece la pena usar el modelo? Comparado con clasificar todo como Cambisols (naranja) o no clasificar (gris).</p>
-    <div id="decisionChart" class="chart-h"></div>
-  </section>
-
-  <!-- 9 · USDA resultados -->
-  <section class="slide next">
-    <p class="kicker">Resultados USDA</p>
-    <h2>Resultados USDA</h2>
+    <p class="kicker">Resultados</p>
+    <h2>Clasificación USDA</h2>
     <div class="c2" style="margin-top:14px;">
       <div class="card al2">
         <h3>R² negativo — ¿qué significa?</h3>
         <ul class="fl">
-          <li>📈 KFold-5: R2 medio <strong>0.796</strong> (interpolación en dominio conocido)</li>
-          <li>📉 LOSO: R2 medio <strong>-2.735</strong> (falla al cambiar de sensor)</li>
           <li>📉 El modelo predice peor que la media → los patrones texturales no transfieren entre sensores</li>
-          <li>🔄 Se necesita más cobertura de sensores y contextos edáficos</li>
+          <li>🔄 X93 tiene distribución textural diferente al X91</li>
           <li>🧪 Necesita recalibración por sensor o más datos de suelos distintos</li>
         </ul>
       </div>
       <div class="card al3">
-        <h3>Kruskal-Wallis · hallazgo positivo ✅</h3>
+        <h3>Resultados WRB (referencia) ✅</h3>
         <ul class="fl">
-          <li>✅ Diferencias significativas en VWC por profundidad y clase WRB detectadas</li>
-          <li>📊 El sensor <strong>sí capta señal diferencial</strong> del suelo</li>
-          <li>💡 Con más sensores diversificados, la hipótesis sería aceptable</li>
+          <li>✅ LOSO: LightGBM con F1-macro <strong>0.981</strong> y balanced accuracy <strong>0.978</strong>.</li>
+          <li>✅ Split 66/34 + SMOTE 500%: RF con F1-macro <strong>0.987</strong> y ROC AUC <strong>0.992</strong>.</li>
+          <li>📊 WRB es fuerte y consistente; el reto pendiente está en USDA entre sensores.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 10 · Conclusiones -->
+  <!-- 9 · Calibración -->
+  <section class="slide next">
+    <p class="kicker">Análisis probabilístico</p>
+    <h2>Curva de calibración · RF Cambisols vs resto</h2>
+    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">La curva se usa para comprobar si las probabilidades están bien ajustadas. Diagonal punteada = calibración perfecta.</p>
+    <div id="calibrationChart" class="chart-h"></div>
+  </section>
+
+  <!-- 10 · Decisión -->
+  <section class="slide next">
+    <p class="kicker">Análisis de utilidad</p>
+    <h2>Curva de decisión · beneficio neto por umbral</h2>
+    <p class="lead" style="font-size:.9rem; margin-bottom:4px;">¿Merece la pena usar el modelo? Compara el beneficio frente a estrategias simples según el umbral elegido.</p>
+    <div id="decisionChart" class="chart-h"></div>
+  </section>
+
+  <!-- 11 · Conclusiones -->
   <section class="slide next" style="background: linear-gradient(160deg,rgba(15,118,110,.06),rgba(3,105,161,.06));">
     <p class="kicker">Conclusiones</p>
     <h2>¿Aceptamos la hipótesis?</h2>
@@ -373,7 +493,7 @@
       </div>
       <div class="card al2">
         <h3>⚠️ Limitación de datos</h3>
-        <p>Desbalanceo WRB severo (Cambisols 92.1%). USDA aún no transfiere entre sensores en validación LOSO.</p>
+        <p>Desbalanceo fuerte (Cambisols 92.1%) y pocas muestras en clases raras. Se mitigó con SMOTE 500% en el escenario comparativo.</p>
       </div>
       <div class="card al3">
         <h3>🔭 Hoja de ruta</h3>
@@ -382,7 +502,7 @@
     </div>
     <div class="card at" style="margin-top:14px;">
       <p style="font-size:.97rem; color:var(--ink); line-height:1.7;">
-        <strong>Hipótesis confirmada para WRB</strong> — la señal Sentek discrimina tipo de suelo con F1-macro 0.981 en LOSO. Para USDA, la generalización sigue pendiente (R2 LOSO negativo), por lo que el roadmap prioriza más sensores y recalibración intersensor.
+        <strong>Conclusión corta:</strong> WRB está fuerte y consistente; USDA va bien en escenario fácil, pero todavía no está muy bien para despliegue robusto entre sensores distintos.
       </p>
     </div>
   </section>
@@ -407,8 +527,8 @@ function render() {
   document.getElementById('prev').disabled = cur === 0;
   document.getElementById('next').disabled = cur === n-1;
   document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('on', i===cur); });
-  if (cur === 6) renderCal();
-  if (cur === 7) renderDec();
+  if (cur === 8) renderCal();
+  if (cur === 9) renderDec();
 }
 
 function go(d){ var nx=cur+d; if(nx>=0&&nx<n){cur=nx;render();} }
