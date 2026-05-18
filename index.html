@@ -23,7 +23,7 @@
       <a class="nav-link" href="datos.html">Datos y Pipeline</a>
       <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
-      <a class="nav-link" href="conclusiones.html">Resultados y Conclusiones</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
     </nav>
   </header>
 
@@ -35,7 +35,7 @@
       <p class="lead">¿Pueden los datos de humedad, temperatura y conductividad del suelo identificar el tipo de suelo sin análisis de laboratorio?</p>
       <div class="chip-row">
         <span class="chip">Jorge Herraiz Soler</span>
-        <span class="chip">Ralph Stephano Ronan</span>
+        <span class="chip">Ralph Berrio Quispe</span>
         <span class="chip">Ignacio Buey Ruiz</span>
       </div>
     </section>
@@ -84,11 +84,19 @@
         <article class="card">
           <h3>Hallazgos clave</h3>
           <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+<<<<<<< HEAD
             <li>📦 <strong>97.564 muestras</strong> · 2 sensores (X91, X93)</li>
             <li>⚠️ <strong>Cambisols domina 89.8%</strong> → accuracy engañoso</li>
             <li>✅ RF Classifier: F1-macro <strong>0.199</strong> · Acc <strong>0.809</strong></li>
             <li>✅ Log. Reg.: F1-macro <strong>0.158</strong> · Acc <strong>0.898</strong></li>
             <li>📉 USDA R² negativo → patrón textural no transfiere entre sensores sin recalibración</li>
+=======
+            <li>📦 21 parquet y 305,842 bloques Sentek procesados</li>
+            <li>⚠️ <strong>Cambisols domina 92.1%</strong> en WRB etiquetado</li>
+            <li>✅ WRB LOSO: LightGBM F1-macro <strong>0.981</strong> · Balanced Acc <strong>0.978</strong></li>
+            <li>✅ WRB Split+SMOTE: RF F1-macro <strong>0.987</strong> · ROC AUC <strong>0.992</strong></li>
+            <li>📉 USDA: R2 medio KFold <strong>0.796</strong> vs LOSO <strong>-2.735</strong></li>
+>>>>>>> 8699ce5bf3a573575a40eede872d4fd702dc8d92
             <li>🔬 Kruskal-Wallis confirma diferencias significativas en VWC por capa y clase</li>
           </ul>
         </article>
@@ -98,7 +106,7 @@
     <section class="grid three">
       <article class="card">
         <h3>Datos y Pipeline</h3>
-        <p>Fuentes, integración temporal, 21 archivos parquet y 97.564 muestras unificadas.</p>
+        <p>Fuentes, integración temporal y datasets listos para modelado (WRB/USDA/predicción).</p>
         <a class="action-link" href="datos.html">Ver datos</a>
       </article>
       <article class="card">
@@ -111,6 +119,82 @@
         <p>11 figuras diagnósticas: distribución WRB, missingness, PCA, correlaciones y textura USDA.</p>
         <a class="action-link" href="figuras.html">Ver figuras</a>
       </article>
+    </section>
+
+    <section class="content-block">
+      <p class="kicker">Resultados</p>
+      <h2>Resultados WRB y Resultados USDA</h2>
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Resultados WRB</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>LOSO: LightGBM F1-macro <strong>0.981</strong> y balanced accuracy <strong>0.978</strong>.</li>
+            <li>Split 66/34 + SMOTE 500%: RF F1-macro <strong>0.987</strong> y ROC AUC <strong>0.992</strong>.</li>
+            <li><strong>WRB funciona bien</strong> y mantiene consistencia en validación exigente.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Resultados USDA</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>KFold: R2 medio <strong>0.796</strong> (escenario fácil).</li>
+            <li>LOSO: R2 medio <strong>-2.735</strong> (sensor no visto).</li>
+            <li><strong>USDA aún no está listo</strong> para despliegue robusto entre sensores distintos.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-block" style="margin-top: 40px;">
+      <p class="kicker">Entregable del equipo · Campus Digital FP</p>
+      <h2>Página web interactiva de investigación</h2>
+      <p style="max-width: 680px; line-height: 1.7; color: #444; margin-bottom: 24px;">
+        El equipo de investigación — <strong>Jorge Herraiz Soler</strong>, <strong>Ralph Berrio Quispe</strong>
+        e <strong>Ignacio Buey Ruiz</strong> — ha desarrollado esta página web como presentación completa
+        del proyecto. La web recoge las dos líneas de investigación (clasificación <strong>WRB</strong>
+        en Python y clasificación textural <strong>USDA</strong> en R + Weka) e integra todos los
+        resultados en un formato visual interactivo pensado para Spherag y para el tribunal evaluador
+        de Campus Digital FP.
+      </p>
+      <div class="grid two" style="gap: 16px;">
+        <article class="card" style="border-left: 4px solid #1B6B45;">
+          <h3>Gráficas interactivas</h3>
+          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
+            <li>Dashboard vivo con perfiles de humedad por profundidad</li>
+            <li>Triángulo textural USDA con datos reales del sensor</li>
+            <li>Distribución de clases WRB y USDA con filtros dinámicos</li>
+            <li>Evolución temporal de la señal VWC por franja horaria</li>
+          </ul>
+          <a class="action-link" href="dashboard.html" style="display:inline-block; margin-top: 12px;">Abrir dashboard</a>
+        </article>
+        <article class="card" style="border-left: 4px solid #1B6B45;">
+          <h3>Figuras técnicas comentadas</h3>
+          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
+            <li>13 figuras diagnósticas del pipeline WRB (Python)</li>
+            <li>Matrices de correlación y PCA de señales Sentek</li>
+            <li>Curvas de calibración y curvas de decisión del modelo</li>
+            <li>Perfiles de humedad y temperatura por clase de suelo</li>
+          </ul>
+          <a class="action-link" href="figuras.html" style="display:inline-block; margin-top: 12px;">Ver figuras</a>
+        </article>
+      </div>
+
+      <div class="grid three" style="gap: 16px; margin-top: 16px;">
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">🧬</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación WRB</h3>
+          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · Python · LightGBM<br/>F1-macro LOSO = 0.981</p>
+        </article>
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">📐</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación USDA</h3>
+          <p style="font-size: 0.85rem; color: #555;">Ralph · Ignacio · R + Weka<br/>ROC AUC = 0.873</p>
+        </article>
+        <article class="card" style="text-align: center; background: #f0f8f4;">
+          <p style="font-size: 2rem; margin: 0;">🌐</p>
+          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Web interactiva</h3>
+          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · HTML · JS · CSS<br/>Presentación integrada</p>
+        </article>
+      </div>
     </section>
 
   </main>

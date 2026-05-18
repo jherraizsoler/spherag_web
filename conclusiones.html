@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resultados y Conclusiones · Spherag</title>
+  <title>Presentacion Sentek - Patrones y Roadmap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -23,229 +23,71 @@
       <a class="nav-link" href="datos.html">Datos y Pipeline</a>
       <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
-      <a class="nav-link is-active" href="conclusiones.html">Resultados y Conclusiones</a>
+      <a class="nav-link is-active" href="conclusiones.html">Patrones y Roadmap</a>
     </nav>
   </header>
 
   <main class="page-container">
-
-    <!-- KPIs del dataset -->
-    <section class="hero">
-      <p class="kicker">Resultados reales del pipeline · Leave-One-Sensor-Out</p>
-      <h1>Resultados y Conclusiones</h1>
-      <p class="lead">Todos los datos provienen del pipeline ejecutado sobre los 44.011 registros etiquetados de los sensores X91 y X93.</p>
-      <div class="chip-row">
-        <span class="chip">44.011 muestras WRB</span>
-        <span class="chip">2 sensores (X91 / X93)</span>
-        <span class="chip">6 clases WRB</span>
-        <span class="chip">Validación Leave-One-Sensor-Out</span>
-      </div>
-    </section>
-
-    <!-- Distribución WRB -->
     <section class="content-block">
-      <p class="kicker">Distribución real del dataset</p>
-      <h2>Composición por tipo de suelo WRB</h2>
-      <p style="color:var(--muted); margin-bottom:18px;">El desbalance de clases es el hallazgo más crítico del estudio. Cambisols domina con el 89,8% de las muestras, lo que condiciona directamente los resultados del modelo.</p>
+      <p class="kicker">Insights exploratorios</p>
+      <h1>Patrones detectados</h1>
       <div class="bars">
-        <div class="bar-row">
-          <span>Cambisols</span>
-          <div class="bar"><i style="width:89.8%;"></i></div>
-          <span class="bar-label">39.542</span>
-        </div>
-        <div class="bar-row">
-          <span>Arenosols</span>
-          <div class="bar"><i style="width:5.7%; background:var(--accent-2);"></i></div>
-          <span class="bar-label">2.498</span>
-        </div>
-        <div class="bar-row">
-          <span>Luvisols</span>
-          <div class="bar"><i style="width:2.6%; background:var(--accent-3);"></i></div>
-          <span class="bar-label">1.138</span>
-        </div>
-        <div class="bar-row">
-          <span>Fluvisols</span>
-          <div class="bar"><i style="width:1.5%; background:#7c3aed;"></i></div>
-          <span class="bar-label">655</span>
-        </div>
-        <div class="bar-row">
-          <span>Calcisols</span>
-          <div class="bar"><i style="width:0.4%; background:#db2777;"></i></div>
-          <span class="bar-label">176</span>
-        </div>
-        <div class="bar-row">
-          <span>Alisols</span>
-          <div class="bar"><i style="width:0.1%; background:#dc2626;"></i></div>
-          <span class="bar-label">2</span>
-        </div>
+        <div class="bar-row"><span>Dominio Cambisols</span><div class="bar"><i style="width: 92%;"></i></div></div>
+        <div class="bar-row"><span>Etiquetas disponibles</span><div class="bar"><i style="width: 32%;"></i></div></div>
+        <div class="bar-row"><span>Faltantes VIC profundos</span><div class="bar"><i style="width: 98%;"></i></div></div>
       </div>
+      <p class="note">WRB confirma señal fuerte en LOSO (LightGBM F1-macro 0.981), pero USDA no generaliza entre sensores (R2 medio LOSO = -2.735).</p>
     </section>
 
-    <!-- Métricas WRB -->
     <section class="content-block">
-      <p class="kicker">Clasificación WRB</p>
-      <h2>Resultados de los modelos (Leave-One-Sensor-Out)</h2>
-      <p style="color:var(--muted); margin-bottom:18px;">
-        Se entrenó en el sensor X91 y se evaluó en X93, y viceversa. Esta es la validación más exigente posible con los datos disponibles.
-      </p>
-
-      <div class="grid two" style="margin-bottom:20px;">
-        <article class="card">
-          <p class="kicker">Random Forest</p>
-          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent);">80.9%</div>
-              <div style="font-size:0.8rem; color:var(--muted);">Accuracy</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent-2);">28.1%</div>
-              <div style="font-size:0.8rem; color:var(--muted);">Balanced Acc</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent-3);">0.199</div>
-              <div style="font-size:0.8rem; color:var(--muted);">F1 macro</div>
-            </div>
-          </div>
+      <p class="kicker">Riesgos</p>
+      <h2>Qué puede sesgar resultados</h2>
+      <div class="grid two">
+        <article class="card warn">
+          <h3>Desbalance severo</h3>
+          <p>No usar accuracy sola. Mejor macro-F1, balanced accuracy y matriz de confusión por clase.</p>
         </article>
-        <article class="card">
-          <p class="kicker">Regresión Logística</p>
-          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent);">44.6%</div>
-              <div style="font-size:0.8rem; color:var(--muted);">Accuracy</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent-2);">10.0%</div>
-              <div style="font-size:0.8rem; color:var(--muted);">Balanced Acc</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:2rem; font-weight:700; color:var(--accent-3);">0.094</div>
-              <div style="font-size:0.8rem; color:var(--muted);">F1 macro</div>
-            </div>
-          </div>
+        <article class="card warn">
+          <h3>Missing no aleatorio</h3>
+          <p>Muchos vacíos dependen de arquitectura de sensor. Evitar imputación ciega.</p>
         </article>
       </div>
-
-      <p class="kicker">F1 por clase · Random Forest</p>
-      <div class="bars" style="margin-top:10px;">
-        <div class="bar-row"><span>Cambisols</span><div class="bar"><i style="width:93.8%;"></i></div><span class="bar-label">0.938</span></div>
-        <div class="bar-row"><span>Arenosols</span><div class="bar"><i style="width:0%; background:var(--accent-2);"></i></div><span class="bar-label">0.000</span></div>
-        <div class="bar-row"><span>Luvisols</span><div class="bar"><i style="width:0%; background:var(--accent-3);"></i></div><span class="bar-label">0.000</span></div>
-        <div class="bar-row"><span>Fluvisols</span><div class="bar"><i style="width:0%;"></i></div><span class="bar-label">0.000</span></div>
-        <div class="bar-row"><span>Calcisols</span><div class="bar"><i style="width:0%;"></i></div><span class="bar-label">0.000</span></div>
-        <div class="bar-row"><span>Alisols</span><div class="bar"><i style="width:0%;"></i></div><span class="bar-label">0.000</span></div>
-      </div>
-      <p class="note" style="margin-top:12px;">
-        El modelo aprende a predecir casi siempre Cambisols porque domina el 90% del set. La accuracy de 80.9% es engañosa — el F1-macro de 0.199 refleja la realidad: las clases minoritarias no se detectan entre sensores distintos.
-      </p>
     </section>
 
-    <!-- USDA -->
     <section class="content-block">
-      <p class="kicker">Regresión USDA multiobjetivo</p>
-      <h2>Textura del suelo (clay / sand / silt)</h2>
-      <p style="color:var(--muted); margin-bottom:18px;">
-        Se regresaron 6 targets de textura (arcilla, arena, limo a 30–60 cm y 60–100 cm). El R² negativo confirma que el patrón de textura <strong>no se transfiere entre sensores</strong> sin recalibración previa.
-      </p>
-      <div class="grid three">
+      <p class="kicker">Resultados</p>
+      <h2>Resultados WRB y Resultados USDA</h2>
+      <div class="grid two">
         <article class="card">
-          <h3>Clay 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.16</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 16.1%</p>
+          <h3>Resultados WRB</h3>
+          <ul>
+            <li>LOSO: LightGBM con F1-macro 0.981 y balanced accuracy 0.978.</li>
+            <li>Split 66/34 + SMOTE 500%: Random Forest con F1-macro 0.987 y ROC AUC 0.992.</li>
+            <li>Conclusión: WRB es fuerte y consistente incluso en validación dura.</li>
+          </ul>
         </article>
         <article class="card">
-          <h3>Sand 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.48</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p>
-        </article>
-        <article class="card">
-          <h3>Silt 30–60 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.68</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 24.2%</p>
-        </article>
-        <article class="card">
-          <h3>Clay 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −1.07</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 16.2%</p>
-        </article>
-        <article class="card">
-          <h3>Sand 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −0.40</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 21.3%</p>
-        </article>
-        <article class="card">
-          <h3>Silt 60–100 cm</h3>
-          <p style="font-size:1.5rem; font-weight:700; color:#dc2626;">R² = −2.14</p>
-          <p style="color:var(--muted); font-size:0.85rem;">MAE = 26.0%</p>
+          <h3>Resultados USDA</h3>
+          <ul>
+            <li>KFold: R2 medio 0.796 (buen rendimiento en escenario fácil).</li>
+            <li>LOSO: R2 medio -2.735 (caída en generalización a sensor no visto).</li>
+            <li>Conclusión: USDA aún no está listo para despliegue robusto entre sensores distintos.</li>
+          </ul>
         </article>
       </div>
-
-      <p class="kicker" style="margin-top:20px;">Clase USDA derivada del triángulo de texturas</p>
-      <div class="bars" style="margin-top:10px;">
-        <div class="bar-row"><span>Loam</span><div class="bar"><i style="width:63%;"></i></div><span class="bar-label">60.759</span></div>
-        <div class="bar-row"><span>Clay Loam</span><div class="bar"><i style="width:29.8%; background:var(--accent-2);"></i></div><span class="bar-label">28.741</span></div>
-        <div class="bar-row"><span>Sandy Clay Loam</span><div class="bar"><i style="width:5.8%; background:var(--accent-3);"></i></div><span class="bar-label">5.566</span></div>
-        <div class="bar-row"><span>Sand</span><div class="bar"><i style="width:2.6%; background:#7c3aed;"></i></div><span class="bar-label">2.494</span></div>
-        <div class="bar-row"><span>Loamy Sand</span><div class="bar"><i style="width:0.1%; background:#db2777;"></i></div><span class="bar-label">4</span></div>
-      </div>
+      <p class="note"><strong>Conclusión corta:</strong> WRB está fuerte y consistente; USDA va bien en escenario fácil, pero todavía no está muy bien para despliegue robusto entre sensores distintos.</p>
     </section>
 
-    <!-- Interpretación -->
-    <section class="grid two">
-      <article class="card warn">
-        <h3>Por que la accuracy engana</h3>
-        <p>Con 89.8% de muestras Cambisols, un clasificador que predice siempre Cambisols obtiene ~89% de accuracy. El F1-macro de 0.199 es la métrica honesta: las clases minoritarias no se detectan.</p>
-      </article>
-      <article class="card warn">
-        <h3>Por que el R² es negativo</h3>
-        <p>Solo hay 2 sensores. Entrenar en X91 y predecir en X93 (o viceversa) es un test inter-sensor muy exigente. Los patrones de textura no se generalizan sin más datos de calibración.</p>
-      </article>
-      <article class="card">
-        <h3>Calibracion probabilistica</h3>
-        <p>Se aplicó calibración isotónica (CalibratedClassifierCV) sobre el problema binario Cambisols vs resto. Las curvas de calibración y decisión están disponibles en Figuras Técnicas.</p>
-      </article>
-      <article class="card">
-        <h3>Validacion rigurosa</h3>
-        <p>Se usó Leave-One-Sensor-Out en lugar de K-Fold aleatorio. Esto evita data leakage temporal y refleja la capacidad real de generalización a sensores no vistos.</p>
-      </article>
-    </section>
-
-    <!-- Roadmap -->
     <section class="content-block">
-      <p class="kicker">Hoja de ruta</p>
-      <h2>Próximos pasos de investigación</h2>
+      <p class="kicker">Roadmap</p>
+      <h2>Siguientes pasos de investigación</h2>
       <div class="timeline">
-        <div class="milestone">
-          <b>1</b>
-          <div>
-            <strong>SMOTE sobre clases minoritarias</strong>
-            <p>Oversampling de Arenosols, Luvisols, Fluvisols y Calcisols para equilibrar el dataset y mejorar el F1 de clases no Cambisols.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>2</b>
-          <div>
-            <strong>Ampliar a más sensores</strong>
-            <p>Con solo 2 sensores el test inter-sensor es extremo. Incorporar más puntos de muestreo mejorará la capacidad de generalización.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>3</b>
-          <div>
-            <strong>XGBoost / LightGBM</strong>
-            <p>Alternativas al Random Forest con mejor manejo del desbalance de clases y menor sobreajuste sensor-específico.</p>
-          </div>
-        </div>
-        <div class="milestone">
-          <b>4</b>
-          <div>
-            <strong>Explicabilidad SHAP</strong>
-            <p>Identificar qué profundidades y señales (VWC, VIC, Temp) discriminan más entre tipos de suelo.</p>
-          </div>
-        </div>
+        <div class="milestone"><b>1</b><p>Expandir sensores y campañas de muestreo para reducir sesgo de clase (Cambisols 92.1%).</p></div>
+        <div class="milestone"><b>2</b><p>Modelado jerárquico por profundidad con foco en VIC para robustez intersensor.</p></div>
+        <div class="milestone"><b>3</b><p>Explicabilidad (SHAP) para priorizar variables con mayor peso por clase WRB.</p></div>
+        <div class="milestone"><b>4</b><p>Reentrenos periódicos con sello de versión para mantener cifras web y reporte sincronizados.</p></div>
       </div>
     </section>
-
   </main>
 </body>
 </html>

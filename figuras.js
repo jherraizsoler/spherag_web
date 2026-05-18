@@ -70,6 +70,14 @@ Plotly.newPlot('fig10', [{
   marker: { size: 5, opacity: 0.6, color: d.usda_scatter.silt, colorscale: 'Viridis', colorbar: { title: 'silt' } }
 }], { ...common, xaxis: { title: 'clay_30_60_pct' }, yaxis: { title: 'sand_30_60_pct' } }, { responsive: true, displaylogo: false });
 
+const cov = d.label_coverage_breakdown;
+const fig11Labels = (cov && Array.isArray(cov.labels) && Array.isArray(cov.values))
+  ? cov.labels
+  : ['labeled', 'unlabeled'];
+const fig11Values = (cov && Array.isArray(cov.labels) && Array.isArray(cov.values))
+  ? cov.values
+  : [d.label_coverage.known, d.label_coverage.unknown];
+
 Plotly.newPlot('fig11', [{
-  type: 'pie', labels: ['labeled', 'unlabeled'], values: [d.label_coverage.known, d.label_coverage.unknown]
+  type: 'pie', labels: fig11Labels, values: fig11Values
 }], { ...common, margin: { l: 10, r: 10, t: 10, b: 10 } }, { responsive: true, displaylogo: false });

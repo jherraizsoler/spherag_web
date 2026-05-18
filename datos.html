@@ -23,7 +23,7 @@
       <a class="nav-link is-active" href="datos.html">Datos y Pipeline</a>
       <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
-      <a class="nav-link" href="conclusiones.html">Resultados y Conclusiones</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
     </nav>
   </header>
 
@@ -68,8 +68,8 @@
       <ol class="steps">
         <li>Filtrado de bloques SENTEK y eliminación de DISCONNECTED.</li>
         <li>Enlace temporal: Imei + Code + rango de validez.</li>
-        <li>Expansión por capas y canales: VWC, TEMP, VIC, voltage.</li>
-        <li>Generación de WRB, USDA, Unified y ARFF.</li>
+        <li>Expansión por capas y canales: VWC, TEMP y VIC (sin canal 9 / voltage).</li>
+        <li>Generación de artefactos WRB, USDA, predicción y ARFF.</li>
       </ol>
     </section>
 
@@ -79,16 +79,16 @@
       <div class="grid two">
         <article class="card">
           <ul>
-            <li>WRB: 44,011 filas</li>
-            <li>USDA: 44,074 filas</li>
-            <li>Unified: 97,564 filas</li>
+            <li>WRB: 7,591 filas (58 features)</li>
+            <li>USDA: 10,473 filas (58 features)</li>
+            <li>Predicción: 14,339 filas (58 features)</li>
           </ul>
         </article>
         <article class="card">
           <ul>
             <li>WRB CSV = WRB ARFF</li>
-            <li>Unified etiquetado = WRB</li>
-            <li>Unified targets completos = USDA</li>
+            <li>Validación LOSO con 4 sensores únicos</li>
+            <li>Reporte y métricas sincronizados con training actual</li>
           </ul>
         </article>
       </div>

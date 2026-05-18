@@ -24,15 +24,16 @@
       <a class="nav-link" href="datos.html">Datos y Pipeline</a>
       <a class="nav-link is-active" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
-      <a class="nav-link" href="conclusiones.html">Resultados y Conclusiones</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
     </nav>
   </header>
 
   <main class="page-container">
     <section class="content-block">
-      <p class="kicker">Graficos vivoscon scroll</p>
+      <p class="kicker">Graficos vivos con scroll</p>
       <h1>Explorador interactivo WRB + USDA</h1>
       <p class="lead">El volumen de datos en Cambisols aporta una base estadística muy sólida para patrones de capas. El resto de clases también se mantienen visibles para comparación.</p>
+      <p class="counter-note">Lectura rápida recomendada: 1) distribución WRB, 2) perfiles por profundidad, 3) triángulo USDA, 4) validación estadística y calibración.</p>
 
       <div class="live-controls">
         <label>
@@ -112,6 +113,7 @@
         <div id="usdaClassCounter" class="class-counter"></div>
         <p class="counter-note">Sin inventar datos: todo sale de CSV reales del proyecto.</p>
       </article>
+
       <article class="chart-card full">
         <h3>Curva de calibracion · RF Cambisols vs resto (isotonica)</h3>
         <p style="color:var(--muted); font-size:0.88rem; margin:6px 16px 0;">Compara la probabilidad predicha por el modelo contra la frecuencia real de Cambisols. La linea diagonal = calibracion perfecta.</p>
@@ -133,7 +135,6 @@
   (function() {
     var data = {"calibration":{"mean_pred":[0.0184,0.1655,0.2576,0.3487,0.4460,0.5769,0.8531,0.9864],"frac_pos":[1.0,1.0,1.0,1.0,1.0,0.9912,0.9984,0.8895]},"decision":{"thresholds":[0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25,0.26,0.27,0.28,0.29,0.30,0.31,0.32,0.33,0.34,0.35,0.36,0.37,0.38,0.39,0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,0.60,0.61,0.62,0.63,0.64,0.65,0.66,0.67,0.68,0.69,0.70,0.71,0.72,0.73,0.74,0.75,0.76,0.77,0.78,0.79,0.80,0.81,0.82,0.83,0.84,0.85,0.86,0.87,0.88,0.89,0.90,0.91,0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99],"nb_model":[0.8886,0.8875,0.8865,0.8839,0.8828,0.8817,0.8795,0.8783,0.8771,0.8747,0.8734,0.8721,0.8700,0.8686,0.8673,0.8656,0.8626,0.8611,0.8596,0.8563,0.8547,0.8530,0.8506,0.8489,0.8471,0.8442,0.8423,0.8404,0.8373,0.8353,0.8333,0.8306,0.8273,0.8251,0.8219,0.8184,0.8158,0.8133,0.8092,0.8063,0.8035,0.7996,0.7965,0.7934,0.7719,0.7685,0.7651,0.7592,0.7555,0.7516,0.7471,0.7429,0.7382,0.7337,0.7284,0.7235,0.7182,0.7127,0.7070,0.7011,0.6913,0.6847,0.6778,0.6705,0.6628,0.6547,0.6461,0.6369,0.6272,0.6169,0.6059,0.5941,0.5815,0.5679,0.5533,0.5375,0.5205,0.5019,0.4817,0.4595,0.4351,0.4082,0.3782,0.3448,0.2984,0.2423,0.1935,0.1373,0.0699,-0.0120,-0.1054,-0.2926,-0.4354,-0.6181,-0.1732,-0.3887,-0.6824,-1.1619,-2.1053],"nb_all":[0.8974,0.8964,0.8953,0.8943,0.8932,0.8920,0.8909,0.8897,0.8885,0.8873,0.8860,0.8848,0.8834,0.8821,0.8807,0.8793,0.8779,0.8764,0.8749,0.8734,0.8718,0.8702,0.8685,0.8668,0.8650,0.8632,0.8614,0.8595,0.8575,0.8555,0.8535,0.8514,0.8492,0.8469,0.8446,0.8422,0.8397,0.8372,0.8346,0.8319,0.8291,0.8262,0.8232,0.8201,0.8169,0.8135,0.8101,0.8065,0.8028,0.7989,0.7949,0.7907,0.7863,0.7818,0.7771,0.7721,0.7669,0.7615,0.7558,0.7499,0.7436,0.7370,0.7301,0.7228,0.7151,0.7070,0.6984,0.6893,0.6795,0.6692,0.6581,0.6464,0.6338,0.6202,0.6056,0.5899,0.5728,0.5542,0.5339,0.5118,0.4874,0.4604,0.4305,0.3970,0.3593,0.3166,0.2678,0.2116,0.1459,0.0683,-0.0247,-0.1385,-0.2806,-0.4633,-0.7067,-1.0474,-1.5579,-2.4077,-4.1029],"prevalence":0.8985}};
 
-    // Curva de calibracion
     Plotly.newPlot('calibrationChart', [
       {
         x: data.calibration.mean_pred,
@@ -159,7 +160,6 @@
       font: { family: 'Space Grotesk, Segoe UI, sans-serif', size: 13 }
     }, { responsive: true, displayModeBar: false });
 
-    // Curva de decision
     var prev = data.decision.prevalence;
     Plotly.newPlot('decisionChart', [
       {
