@@ -363,3 +363,123 @@ window.addEventListener('touchend', (e) => {
 });
 
 updateUI(0);
+
+function loadSampleData() {
+  const samplePreset = document.getElementById('samplePreset').value;
+  const form = document.getElementById('classificationForm');
+  const resultPanel = document.getElementById('resultPanel');
+
+  const presets = {
+    mediterraneo: {
+      avgHum10cm: 15.8,
+      avgHum50cm: 21.4,
+      rangeHum10cm: 0.48,
+      rangeHum50cm: 0.21,
+      avgTemp10cm: 24.3,
+      rangeTemp10cm: 1.18,
+      dryRate10cm: 0.017,
+      dryRate50cm: 0.011,
+      id: 101,
+      depth: 80,
+      vwc30cm: 8.8,
+      vwc40cm: 7.1,
+      vwc60cm: 9.2,
+      vic70cm: 180,
+      vic80cm: 210,
+      hasVic: 1
+    },
+    // ...otros ejemplos...
+  };
+
+  const data = presets[samplePreset];
+  if (data) {
+    Object.keys(data).forEach((key) => {
+      const input = form.querySelector(`[name="${key}"]`);
+      if (input) {
+        input.value = data[key];
+      }
+    });
+  }
+
+  // Ocultar resultados al cargar ejemplo
+  resultPanel.classList.add('is-hidden');
+}
+
+document.getElementById('loadSampleBtn').addEventListener('click', loadSampleData);
+
+document.getElementById('classificationType').addEventListener('change', () => {
+  const classificationType = document.getElementById('classificationType').value;
+  const usdaFields = document.querySelectorAll('[data-group="usda"] input');
+  const wrbFields = document.querySelectorAll('[data-group="wrb"] input');
+
+  // Limpiar y ocultar campos no relevantes
+  if (classificationType === 'usda') {
+    wrbFields.forEach((field) => {
+      field.value = '';
+      field.closest('fieldset').style.display = 'none';
+    });
+    usdaFields.forEach((field) => {
+      field.closest('fieldset').style.display = '';
+    });
+  } else if (classificationType === 'wrb') {
+    usdaFields.forEach((field) => {
+      field.value = '';
+      field.closest('fieldset').style.display = 'none';
+    });
+    wrbFields.forEach((field) => {
+      field.closest('fieldset').style.display = '';
+    });
+  } else if (classificationType === 'both') {
+    usdaFields.forEach((field) => {
+      field.closest('fieldset').style.display = '';
+    });
+    wrbFields.forEach((field) => {
+      field.closest('fieldset').style.display = '';
+    });
+  }
+
+  // Ocultar resultados al cambiar el modo de clasificación
+  const resultPanel = document.getElementById('resultPanel');
+  resultPanel.classList.add('is-hidden');
+});
+
+function simulateProcessFlow() {
+  const progressState = document.getElementById('progressState');
+  const progressBar = document.getElementById('progressBar');
+  const progressSteps = document.getElementById('progressSteps');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultCards = document.getElementById('resultCards');
+
+  let progress = 0;
+  progressBar.style.width = '0%';
+  progressBar.style.backgroundColor = 'green'; // Cambiar color a verde
+  progressState.textContent = 'Iniciando...';
+
+  function updateProgress() {
+    if (progress < 100) {
+      const increment = Math.floor(Math.random() * 10) + 5; // Incremento aleatorio entre 5 y 15
+      progress = Math.min(progress + increment, 100);
+      progressBar.style.width = `${progress}%`;
+      progressState.textContent = `Progreso: ${progress}%`;
+
+      setTimeout(updateProgress, Math.random() * 300 + 300); // Espera aleatoria entre 300ms y 600ms
+    } else {
+      progressState.textContent = 'Proceso completado';
+      resultPanel.classList.remove('is-hidden');
+      resultCards.innerHTML = `
+        <div class="result-card">
+          <h4>USDA</h4>
+          <p>Resultado: Simulado</p>
+        </div>
+        <div class="result-card">
+          <h4>WRB</h4>
+          <p>Resultado: Simulado</p>
+        </div>
+      `;
+    }
+  }
+
+  updateProgress();
+}
+
+document.getElementById('executeClassification').addEventListener('click', simulateProcessFlow);

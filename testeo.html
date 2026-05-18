@@ -27,118 +27,365 @@
 
   <main class="page-container">
     <section id="testeo" class="content-block">
-      <h2>Formulario de Clasificación</h2>
-      <form id="classificationForm">
-        <h2 style="color: #333;">Campos Comunes</h2>
-        <div style="color: blue; margin-bottom: 20px;">
-          <label for="avgHum10cm">Humedad Media 10cm:</label>
-          <input type="number" id="avgHum10cm" name="avgHum10cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="avgHum50cm">Humedad Media 50cm:</label>
-          <input type="number" id="avgHum50cm" name="avgHum50cm" step="any" style="margin-left: 10px;">
+      <div class="testeo-hero">
+        <div>
+          <p class="kicker">Testeo Interactivo</p>
+          <h2>Clasificación de suelo con seguimiento en tiempo real</h2>
+          <p class="lead">
+            Introduce o carga datos de ejemplo, ejecuta USDA, WRB o ambos modelos, y sigue visualmente cada etapa del proceso hasta el resultado final.
+          </p>
         </div>
+        <div class="testeo-hero-badge">UX Flow</div>
+      </div>
 
-        <h2 style="color: #333;">Campos Específicos de USDA</h2>
-        <div style="color: green; margin-bottom: 20px;">
-          <label for="rangeHum10cm">Rango Humedad 10cm:</label>
-          <input type="number" id="rangeHum10cm" name="rangeHum10cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="rangeHum50cm">Rango Humedad 50cm:</label>
-          <input type="number" id="rangeHum50cm" name="rangeHum50cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="avgTemp10cm">Temperatura Media 10cm:</label>
-          <input type="number" id="avgTemp10cm" name="avgTemp10cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="rangeTemp10cm">Rango Temperatura 10cm:</label>
-          <input type="number" id="rangeTemp10cm" name="rangeTemp10cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="dryRate10cm">Velocidad de Secado 10cm:</label>
-          <input type="number" id="dryRate10cm" name="dryRate10cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="dryRate50cm">Velocidad de Secado 50cm:</label>
-          <input type="number" id="dryRate50cm" name="dryRate50cm" step="any" style="margin-left: 10px;">
-        </div>
-
-        <h2 style="color: #333;">Campos Específicos de WRB</h2>
-        <div style="color: orange; margin-bottom: 20px;">
-          <label for="id">ID:</label>
-          <input type="number" id="id" name="id" style="margin-left: 10px;">
-          <br><br>
-          <label for="depth">Profundidad:</label>
-          <input type="number" id="depth" name="depth" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="vwc30cm">Humedad Volumétrica 30cm:</label>
-          <input type="number" id="vwc30cm" name="vwc30cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="vwc40cm">Humedad Volumétrica 40cm:</label>
-          <input type="number" id="vwc40cm" name="vwc40cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="vwc60cm">Humedad Volumétrica 60cm:</label>
-          <input type="number" id="vwc60cm" name="vwc60cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="vic70cm">Conductividad Iónica 70cm:</label>
-          <input type="number" id="vic70cm" name="vic70cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="vic80cm">Conductividad Iónica 80cm:</label>
-          <input type="number" id="vic80cm" name="vic80cm" step="any" style="margin-left: 10px;">
-          <br><br>
-          <label for="hasVic">Tiene VIC Activo:</label>
-          <input type="number" id="hasVic" name="hasVic" step="any" style="margin-left: 10px;">
-        </div>
-
-        <h2 style="color: #333;">Selecciona el tipo de clasificación</h2>
-        <div style="margin-bottom: 20px;">
-          <label for="classificationType">Selecciona el tipo de clasificación:</label>
-          <select id="classificationType" style="margin-left: 10px;">
-            <option value="both">Ambos</option>
-            <option value="usda">USDA</option>
-            <option value="wrb">WRB</option>
+      <form id="classificationForm" class="testeo-form" novalidate>
+        <div class="testeo-toolbar">
+          <label for="samplePreset">Datos de ejemplo</label>
+          <select id="samplePreset" class="testeo-select">
+            <option value="mediterraneo">Mediterraneo (ambos, Cambisols)</option>
+            <option value="calcisol">Perfil calcisol (WRB)</option>
+            <option value="fluvisol">Perfil fluvisol (WRB)</option>
+            <option value="luvisol">Perfil luvisol (WRB)</option>
+            <option value="arenoso">Perfil arenoso (USDA)</option>
           </select>
+
+          <label for="classificationType">Modo de clasificacion</label>
+          <select id="classificationType" name="classificationType" class="testeo-select">
+            <option value="both" selected>USDA + WRB</option>
+            <option value="usda">Solo USDA</option>
+            <option value="wrb">Solo WRB</option>
+          </select>
+
+          <div class="testeo-actions-inline">
+            <button type="button" id="loadSampleBtn" class="testeo-btn testeo-btn-soft">Cargar ejemplo</button>
+          </div>
         </div>
 
-        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Clasificar</button>
+        <div class="testeo-grid">
+          <fieldset class="testeo-fieldset">
+            <legend>Campos comunes</legend>
+            <div class="testeo-input-grid two">
+              <label>Humedad media 10 cm
+                <input type="number" id="avgHum10cm" name="avgHum10cm" step="any" required />
+              </label>
+              <label>Humedad media 50 cm
+                <input type="number" id="avgHum50cm" name="avgHum50cm" step="any" required />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="testeo-fieldset" data-group="usda">
+            <legend>Variables USDA</legend>
+            <div class="testeo-input-grid three">
+              <label>Rango humedad 10 cm
+                <input type="number" id="rangeHum10cm" name="rangeHum10cm" step="any" required />
+              </label>
+              <label>Rango humedad 50 cm
+                <input type="number" id="rangeHum50cm" name="rangeHum50cm" step="any" required />
+              </label>
+              <label>Temperatura media 10 cm
+                <input type="number" id="avgTemp10cm" name="avgTemp10cm" step="any" required />
+              </label>
+              <label>Rango temperatura 10 cm
+                <input type="number" id="rangeTemp10cm" name="rangeTemp10cm" step="any" required />
+              </label>
+              <label>Secado 10 cm
+                <input type="number" id="dryRate10cm" name="dryRate10cm" step="any" required />
+              </label>
+              <label>Secado 50 cm
+                <input type="number" id="dryRate50cm" name="dryRate50cm" step="any" required />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="testeo-fieldset" data-group="wrb">
+            <legend>Variables WRB</legend>
+            <div class="testeo-input-grid three">
+              <label>ID muestra
+                <input type="number" id="id" name="id" step="1" required />
+              </label>
+              <label>Profundidad (cm)
+                <input type="number" id="depth" name="depth" step="any" required />
+              </label>
+              <label>Humedad 30 cm
+                <input type="number" id="vwc30cm" name="vwc30cm" step="any" required />
+              </label>
+              <label>Humedad 40 cm
+                <input type="number" id="vwc40cm" name="vwc40cm" step="any" required />
+              </label>
+              <label>Humedad 60 cm
+                <input type="number" id="vwc60cm" name="vwc60cm" step="any" required />
+              </label>
+              <label>VIC 70 cm
+                <input type="number" id="vic70cm" name="vic70cm" step="any" required />
+              </label>
+              <label>VIC 80 cm
+                <input type="number" id="vic80cm" name="vic80cm" step="any" required />
+              </label>
+              <label>Tiene VIC (0/1)
+                <input type="number" id="hasVic" name="hasVic" step="1" min="0" max="1" required />
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="testeo-main-actions">
+          <button type="button" id="executeClassification" class="testeo-btn testeo-btn-primary">Ejecutar Clasificación</button>
+          <p id="validationHint" class="testeo-hint">Completa los campos requeridos del modo seleccionado.</p>
+        </div>
       </form>
+
+      <section class="testeo-progress" aria-live="polite">
+        <div class="testeo-progress-head">
+          <h3>Estado del proceso</h3>
+          <span id="progressState" class="testeo-state-pill">Listo para ejecutar</span>
+        </div>
+        <div class="testeo-progress-track">
+          <div id="progressBar" class="testeo-progress-bar"></div>
+        </div>
+        <div id="progressSteps" class="testeo-steps"></div>
+      </section>
+
+      <section id="resultPanel" class="testeo-results is-hidden" aria-live="polite">
+        <div class="testeo-progress-head">
+          <h3>Resultado de clasificación</h3>
+          <span id="resultMode" class="testeo-state-pill result">Sin ejecutar</span>
+        </div>
+        <div id="resultCards" class="testeo-result-grid"></div>
+      </section>
     </section>
   </main>
 
   <script src="usda_classification_predictive_model.js"></script>
   <script src="wrb_classifier.js"></script>
   <script>
-    document.getElementById('classificationForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+    (function initTesteoFlow() {
+      const presets = {
+        mediterraneo: {
+          avgHum10cm: 15.8, avgHum50cm: 21.4, rangeHum10cm: 0.48, rangeHum50cm: 0.21,
+          avgTemp10cm: 24.3, rangeTemp10cm: 1.18, dryRate10cm: 0.017, dryRate50cm: 0.011,
+          id: 101, depth: 80, vwc30cm: 8.8, vwc40cm: 7.1, vwc60cm: 9.2, vic70cm: 180, vic80cm: 210, hasVic: 1
+        },
+        calcisol: {
+          avgHum10cm: 13.3, avgHum50cm: 22.8, rangeHum10cm: 0.37, rangeHum50cm: 0.19,
+          avgTemp10cm: 23.1, rangeTemp10cm: 1.47, dryRate10cm: 0.014, dryRate50cm: 0.01,
+          id: 202, depth: 95, vwc30cm: 5.5, vwc40cm: 5.9, vwc60cm: 6.4, vic70cm: 2.3, vic80cm: 2.6, hasVic: 1
+        },
+        fluvisol: {
+          avgHum10cm: 16.1, avgHum50cm: 20.9, rangeHum10cm: 0.42, rangeHum50cm: 0.18,
+          avgTemp10cm: 23.8, rangeTemp10cm: 1.3, dryRate10cm: 0.016, dryRate50cm: 0.011,
+          id: 404, depth: 65, vwc30cm: 8.6, vwc40cm: 9.4, vwc60cm: 10.1, vic70cm: 220, vic80cm: 205, hasVic: 1
+        },
+        luvisol: {
+          avgHum10cm: 14.4, avgHum50cm: 19.9, rangeHum10cm: 0.35, rangeHum50cm: 0.14,
+          avgTemp10cm: 22.9, rangeTemp10cm: 1.44, dryRate10cm: 0.015, dryRate50cm: 0.01,
+          id: 505, depth: 55, vwc30cm: 8.4, vwc40cm: 10.5, vwc60cm: 20.8, vic70cm: 170, vic80cm: 190, hasVic: 0
+        },
+        arenoso: {
+          avgHum10cm: 14.2, avgHum50cm: 20.4, rangeHum10cm: 0.42, rangeHum50cm: 0.16,
+          avgTemp10cm: 24.9, rangeTemp10cm: 1.16, dryRate10cm: 0.018, dryRate50cm: 0.012,
+          id: 303, depth: 70, vwc30cm: 7.7, vwc40cm: 8, vwc60cm: 8.2, vic70cm: 1.2, vic80cm: 1.3, hasVic: 0
+        }
+      };
 
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData.entries());
+      const form = document.getElementById('classificationForm');
+      const classificationType = document.getElementById('classificationType');
+      const resultPanel = document.getElementById('resultPanel');
+      const resultCards = document.getElementById('resultCards');
+      const executeBtn = document.getElementById('executeClassification');
+      const progressBar = document.getElementById('progressBar');
+      const progressState = document.getElementById('progressState');
+      const progressSteps = document.getElementById('progressSteps');
+      const validationHint = document.getElementById('validationHint');
 
-      console.log('Datos del formulario:', data);
+      // --- 1. GESTIÓN DE MODOS, LIMPIEZA TOTAL Y REQUERIDOS DINÁMICOS ---
+      function handleModeChange() {
+        const mode = classificationType.value;
+        const usdaFieldset = form.querySelector('[data-group="usda"]');
+        const wrbFieldset = form.querySelector('[data-group="wrb"]');
 
-      // Lógica para llamar a las funciones de clasificación
-      const usdaResult = predictSoilType(
-        parseFloat(data.avgHum10cm),
-        parseFloat(data.avgHum50cm),
-        parseFloat(data.rangeHum10cm),
-        parseFloat(data.rangeHum50cm),
-        parseFloat(data.avgTemp10cm),
-        parseFloat(data.rangeTemp10cm),
-        parseFloat(data.dryRate10cm),
-        parseFloat(data.dryRate50cm)
-      );
+        resultPanel.classList.add('is-hidden');
+        progressBar.style.width = '0%';
+        progressState.textContent = 'Listo para ejecutar';
+        progressSteps.innerHTML = '';
+        validationHint.textContent = 'Completa los campos requeridos del modo seleccionado.';
 
-      const wrbResult = classifyWRB({
-        id: parseInt(data.id),
-        depth: parseFloat(data.depth),
-        vwc10cm: parseFloat(data.avgHum10cm),
-        vwc30cm: parseFloat(data.vwc30cm),
-        vwc40cm: parseFloat(data.vwc40cm),
-        vwc60cm: parseFloat(data.vwc60cm),
-        vic70cm: parseFloat(data.vic70cm),
-        vic80cm: parseFloat(data.vic80cm),
-        hasVic: parseFloat(data.hasVic)
+        if (mode === 'usda') {
+          // Mostrar USDA, ocultar WRB
+          usdaFieldset.style.display = '';
+          wrbFieldset.style.display = 'none';
+          
+          // Limpiar valores y quitar obligatoriedad a WRB
+          wrbFieldset.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.removeAttribute('required');
+          });
+          // Asegurar que USDA sea obligatorio
+          usdaFieldset.querySelectorAll('input').forEach(input => input.setAttribute('required', ''));
+          
+        } else if (mode === 'wrb') {
+          // Mostrar WRB, ocultar USDA
+          usdaFieldset.style.display = 'none';
+          wrbFieldset.style.display = '';
+          
+          // Limpiar valores y quitar obligatoriedad a USDA
+          usdaFieldset.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.removeAttribute('required');
+          });
+          // Asegurar que WRB sea obligatorio
+          wrbFieldset.querySelectorAll('input').forEach(input => input.setAttribute('required', ''));
+          
+        } else {
+          // Mostrar ambos modos
+          usdaFieldset.style.display = '';
+          wrbFieldset.style.display = '';
+          
+          // Ambos obligatorios
+          usdaFieldset.querySelectorAll('input').forEach(input => input.setAttribute('required', ''));
+          wrbFieldset.querySelectorAll('input').forEach(input => input.setAttribute('required', ''));
+        }
+      }
+
+      classificationType.addEventListener('change', handleModeChange);
+
+      // --- 2. CARGAR CAMPOS FILTRADOS SEGÚN EL PRESET Y EL MODO ---
+      document.getElementById('loadSampleBtn').addEventListener('click', () => {
+        const selectedPreset = presets[document.getElementById('samplePreset').value];
+        const mode = classificationType.value;
+
+        if (selectedPreset) {
+          // Campos comunes siempre se cargan
+          document.getElementById('avgHum10cm').value = selectedPreset.avgHum10cm || '';
+          document.getElementById('avgHum50cm').value = selectedPreset.avgHum50cm || '';
+
+          // Cargar USDA solo si aplica
+          if (mode === 'usda' || mode === 'both') {
+            const fields = ['rangeHum10cm', 'rangeHum50cm', 'avgTemp10cm', 'rangeTemp10cm', 'dryRate10cm', 'dryRate50cm'];
+            fields.forEach(id => document.getElementById(id).value = selectedPreset[id] || '');
+          }
+
+          // Cargar WRB solo si aplica
+          if (mode === 'wrb' || mode === 'both') {
+            const fields = ['id', 'depth', 'vwc30cm', 'vwc40cm', 'vwc60cm', 'vic70cm', 'vic80cm', 'hasVic'];
+            fields.forEach(id => document.getElementById(id).value = selectedPreset[id] || '');
+          }
+
+          resultPanel.classList.add('is-hidden');
+          progressBar.style.width = '0%';
+          progressState.textContent = 'Muestra cargada. Listo para procesar.';
+          progressSteps.innerHTML = '';
+        }
       });
 
-      console.log('Resultado USDA:', usdaResult);
-      console.log('Resultado WRB:', wrbResult);
-    });
+      // --- 3. CALCULADORA VIVA (PROCESO ASÍNCRONO ALEATORIO) ---
+      executeBtn.addEventListener('click', () => {
+        // Validar únicamente los campos activos gracias al cambio dinámico de required
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const mode = classificationType.value;
+        executeBtn.disabled = true;
+        resultPanel.classList.add('is-hidden');
+        progressSteps.innerHTML = '';
+        validationHint.textContent = '';
+
+        let progress = 0;
+        progressState.textContent = 'Iniciando pipeline de clasificación...';
+
+        const logsTimeline = [
+          { threshold: 20, msg: 'Validando parámetros del suelo e integridad...' },
+          { threshold: 50, msg: mode === 'both' ? 'Evaluando reglas cruzadas USDA + WRB...' : `Procesando matriz analítica para algoritmo ${mode.toUpperCase()}...` },
+          { threshold: 80, msg: 'Estructurando reporte e interpretaciones técnicas...' }
+        ];
+
+        function simulateProgress() {
+          if (progress >= 100) {
+            progressBar.style.width = '100%';
+            progressState.textContent = 'Proceso completado.';
+            executeBtn.disabled = false;
+            showRealResults(mode); // Llamada al cálculo real final
+          } else {
+            // Incremento orgánico aleatorio entre 6% y 15%
+            progress += Math.floor(Math.random() * 10) + 6;
+            if (progress > 100) progress = 100;
+
+            progressBar.style.width = `${progress}%`;
+
+            // Imprimir logs acumulativos en la UI
+            logsTimeline.forEach(step => {
+              if (progress >= step.threshold && !progressSteps.innerHTML.includes(step.msg)) {
+                progressState.textContent = step.msg;
+                const p = document.createElement('p');
+                p.style.margin = '4px 0';
+                p.style.fontSize = '0.9rem';
+                p.innerHTML = `🔹 <strong>[${progress}%]</strong> ${step.msg}`;
+                progressSteps.appendChild(p);
+              }
+            });
+
+            // Retardo aleatorio por paso (entre 200ms y 500ms) para simular carga real
+            setTimeout(simulateProgress, Math.floor(Math.random() * 300) + 200);
+          }
+        }
+
+        simulateProgress();
+      });
+
+      // --- 4. RENDERIZACIÓN DE RESULTADOS REALES ---
+      function showRealResults(mode) {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        let htmlCards = '';
+
+        document.getElementById('resultMode').textContent = `Modo: ${mode.toUpperCase()}`;
+
+        if (mode === 'usda' || mode === 'both') {
+          const usdaResult = predictSoilType(
+            parseFloat(data.avgHum10cm), parseFloat(data.avgHum50cm),
+            parseFloat(data.rangeHum10cm), parseFloat(data.rangeHum50cm),
+            parseFloat(data.avgTemp10cm), parseFloat(data.rangeTemp10cm),
+            parseFloat(data.dryRate10cm), parseFloat(data.dryRate50cm)
+          );
+          htmlCards += `
+            <div class="result-card u-usda-border">
+              <h4>Clasificación Estilo USDA</h4>
+              <p class="res-type"><strong>Resultado:</strong> ${usdaResult || 'No determinado'}</p>
+              <small class="res-meta">Calculado usando modelo predictivo multivariable de humedad/temperatura a 10 y 50cm.</small>
+            </div>`;
+        }
+
+        if (mode === 'wrb' || mode === 'both') {
+          const wrbResult = classifyWRB({
+            id: parseInt(data.id) || 0,
+            depth: parseFloat(data.depth) || 0,
+            vwc10cm: parseFloat(data.avgHum10cm),
+            vwc30cm: parseFloat(data.vwc30cm),
+            vwc40cm: parseFloat(data.vwc40cm),
+            vwc60cm: parseFloat(data.vwc60cm),
+            vic70cm: parseFloat(data.vic70cm),
+            vic80cm: parseFloat(data.vic80cm),
+            hasVic: parseInt(data.hasVic) || 0
+          });
+          htmlCards += `
+            <div class="result-card u-wrb-border">
+              <h4>Clasificación Estilo WRB</h4>
+              <p class="res-type"><strong>Suelo:</strong> ${wrbResult.soilType || 'No determinado'}</p>
+              <p class="res-rule"><strong>Regla disparada:</strong> <code>${wrbResult.rule || 'N/A'}</code></p>
+              <p class="res-interp"><strong>Interpretación técnica:</strong> ${wrbResult.interpretation || 'N/A'}</p>
+            </div>`;
+        }
+
+        resultCards.innerHTML = htmlCards;
+        resultPanel.classList.remove('is-hidden');
+        resultPanel.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Inicialización por defecto
+      handleModeChange();
+    })();
   </script>
 </body>
 </html>
