@@ -30,11 +30,9 @@
   <main class="page-container">
 
     <section class="hero">
-      <p class="kicker">Investigación aplicada · Campus Digital FP</p>
-      <h1>Clasificación de tipos de suelo a partir de sensores multinivel (Spherag)</h1>
-      <p class="lead">
-        Investigación de inteligencia artificial realizada por alumnos del Campus Digital FP para probar si es posible identificar el tipo de suelo a partir de los datos tomados por sensores multinivel Sentek.
-      </p>
+      <p class="kicker">Investigación IA · Campus Digital FP</p>
+      <h1>Clasificación de suelo con sensores Sentek (Spherag)</h1>
+      <p class="lead">¿Pueden los datos de humedad, temperatura y conductividad del suelo identificar el tipo de suelo sin análisis de laboratorio?</p>
       <div class="chip-row">
         <span class="chip">Jorge Herraiz Soler</span>
         <span class="chip">Ralph Stephano Ronan</span>
@@ -42,49 +40,59 @@
       </div>
     </section>
 
-    <section class="content-block">
-      <h2>Motivación y contexto</h2>
-      <p class="lead" style="margin-bottom:16px;">
-        Las distintas tipologías de suelo influyen considerablemente en la necesidad de riego, ritmo de crecimiento y rentabilidad de un cultivo. Actualmente, la identificación del tipo de suelo se realiza de distintas formas:
-      </p>
-      <ul class="steps">
-        <li><strong>Imágenes satelitales</strong> — en ocasiones sin la resolución adecuada o con datos incorrectos.</li>
-        <li><strong>Conocimiento empírico</strong> — el agricultor estima el tipo de suelo por experiencia, sin respaldo científico.</li>
-        <li><strong>Estudio científico</strong> — la más precisa, ofrece datos como la capacidad de campo, pero implica un coste económico mayor.</li>
-      </ul>
+    <section class="grid two">
+      <article class="card">
+        <h3>¿Por qué?</h3>
+        <p>Identificar el suelo por satélite o experiencia empírica es impreciso. Un estudio científico es caro. <strong>¿Pueden los datos del sensor sustituirlo?</strong></p>
+      </article>
+      <article class="card">
+        <h3>¿Para qué?</h3>
+        <p>Optimizar el riego, reducir costes y mejorar la rentabilidad del cultivo a partir de datos que el agricultor ya tiene instalados.</p>
+      </article>
     </section>
 
     <section class="grid two">
       <article class="card">
-        <h3>Clasificación USDA</h3>
-        <p>Sistema introducido por el Departamento de Agricultura de EE.UU. que establece <strong>12 clases de textura</strong> en función de los contenidos en arcilla, arena y limo.</p>
+        <h3>USDA · 12 clases de textura</h3>
+        <p>% arena + arcilla + limo → triángulo textural. Fichero: <code>sentek_usda_regression_ready.csv</code></p>
       </article>
       <article class="card">
-        <h3>Clasificación WRB</h3>
-        <p>Sistema establecido por la Unión Internacional de Ciencias del Suelo que tiene en cuenta <strong>multitud de características del suelo</strong> para su clasificación.</p>
+        <h3>WRB · clasificación internacional</h3>
+        <p>Tipo de suelo global (Cambisols, Luvisols…). Fichero: <code>sentek_wrb_classify_ready.csv</code></p>
       </article>
     </section>
 
     <section class="content-block">
-      <h2>Hipótesis de investigación</h2>
+      <h2>Hipótesis</h2>
       <p class="lead" style="margin-bottom:16px;">
-        <em>«Es posible identificar el tipo de suelo a partir de los datos tomados por un sensor multinivel Sentek.»</em>
+        <em>«Es posible identificar el tipo de suelo a partir de los datos del sensor Sentek.»</em>
       </p>
-      <p style="color:var(--muted); line-height:1.72; margin-bottom:16px;">
-        Los sensores Sentek registran humedad, temperatura y electroconductividad del suelo a distintas profundidades, lo que permite analizar la capacidad de penetración del agua y su pérdida, facilitando un uso eficiente del agua de riego.
-      </p>
-      <p style="color:var(--muted); line-height:1.72;">
-        Con el uso de las siguientes técnicas se pretende aceptar o rechazar la hipótesis:
-        <ul style="margin:10px 0 0 18px; line-height:1.9;">
-          <li><strong>K-Means clustering</strong> — agrupación no supervisada de lecturas de sensor para detectar patrones naturales en los datos.</li>
-          <li><strong>Análisis de Componentes Principales (PCA)</strong> — reducción de dimensionalidad sobre VWC, temperatura y conductividad eléctrica por profundidad.</li>
-          <li><strong>Análisis de correlaciones (Pearson / Spearman)</strong> — identificación de relaciones entre variables de sensor y clase de suelo.</li>
-          <li><strong>Test de Kruskal-Wallis</strong> — validación estadística de diferencias significativas entre clases WRB por profundidad.</li>
-          <li><strong>Regresión Logística</strong> — clasificación WRB con validación Leave-One-Sensor-Out (LOSO). Accuracy 0.898, F1-macro 0.158.</li>
-          <li><strong>Random Forest Classifier</strong> — clasificación WRB con LOSO. Accuracy 0.809, F1-macro 0.199. Con calibración isotónica de probabilidades.</li>
-          <li><strong>Random Forest Regressor + Ridge (MultiOutput)</strong> — regresión de % arena, arcilla y limo para derivar clase USDA mediante triángulo textural.</li>
-        </ul>
-      </p>
+
+      <div class="grid two" style="margin-top:12px;">
+        <article class="card">
+          <h3>Técnicas aplicadas</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li><strong>K-Means</strong> — clustering no supervisado de lecturas</li>
+            <li><strong>PCA</strong> — reducción dimensional (VWC, temp, EC)</li>
+            <li><strong>Pearson / Spearman</strong> — correlaciones sensor↔clase</li>
+            <li><strong>Kruskal-Wallis</strong> — diferencias sig. por profundidad</li>
+            <li><strong>Regresión Logística</strong> — clasificación WRB (LOSO)</li>
+            <li><strong>Random Forest Classifier</strong> — clasificación WRB (LOSO) + calibración isotónica</li>
+            <li><strong>RF Regressor + Ridge</strong> — regresión USDA multioutput → triángulo textural</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Hallazgos clave</h3>
+          <ul style="margin:8px 0 0 16px; line-height:2; font-size:0.92rem;">
+            <li>📦 <strong>97.564 muestras</strong> · 2 sensores (X91, X93)</li>
+            <li>⚠️ <strong>Cambisols domina 89.8%</strong> → accuracy engañoso</li>
+            <li>✅ RF Classifier: F1-macro <strong>0.199</strong> · Acc <strong>0.809</strong></li>
+            <li>✅ Log. Reg.: F1-macro <strong>0.158</strong> · Acc <strong>0.898</strong></li>
+            <li>📉 USDA R² negativo → patrón textural no transfiere entre sensores sin recalibración</li>
+            <li>🔬 Kruskal-Wallis confirma diferencias significativas en VWC por capa y clase</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <section class="grid three">
