@@ -24,6 +24,7 @@
       <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
       <a class="nav-link" href="figuras.html">Figuras Tecnicas</a>
       <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+      <a class="nav-link" href="testeo.html">Testeo</a>
     </nav>
   </header>
 
@@ -144,59 +145,11 @@
       </div>
     </section>
 
-    <section class="content-block" style="margin-top: 40px;">
-      <p class="kicker">Entregable del equipo · Campus Digital FP</p>
-      <h2>Página web interactiva de investigación</h2>
-      <p style="max-width: 680px; line-height: 1.7; color: #444; margin-bottom: 24px;">
-        El equipo de investigación — <strong>Jorge Herraiz Soler</strong>, <strong>Ralph Berrio Quispe</strong>
-        e <strong>Ignacio Buey Ruiz</strong> — ha desarrollado esta página web como presentación completa
-        del proyecto. La web recoge las dos líneas de investigación (clasificación <strong>WRB</strong>
-        en Python y clasificación textural <strong>USDA</strong> en R + Weka) e integra todos los
-        resultados en un formato visual interactivo pensado para Spherag y para el tribunal evaluador
-        de Campus Digital FP.
-      </p>
-      <div class="grid two" style="gap: 16px;">
-        <article class="card" style="border-left: 4px solid #1B6B45;">
-          <h3>Gráficas interactivas</h3>
-          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
-            <li>Dashboard vivo con perfiles de humedad por profundidad</li>
-            <li>Triángulo textural USDA con datos reales del sensor</li>
-            <li>Distribución de clases WRB y USDA con filtros dinámicos</li>
-            <li>Evolución temporal de la señal VWC por franja horaria</li>
-          </ul>
-          <a class="action-link" href="dashboard.html" style="display:inline-block; margin-top: 12px;">Abrir dashboard</a>
-        </article>
-        <article class="card" style="border-left: 4px solid #1B6B45;">
-          <h3>Figuras técnicas comentadas</h3>
-          <ul style="margin: 8px 0 0 16px; line-height: 1.9; font-size: 0.92rem; color: #444;">
-            <li>13 figuras diagnósticas del pipeline WRB (Python)</li>
-            <li>Matrices de correlación y PCA de señales Sentek</li>
-            <li>Curvas de calibración y curvas de decisión del modelo</li>
-            <li>Perfiles de humedad y temperatura por clase de suelo</li>
-          </ul>
-          <a class="action-link" href="figuras.html" style="display:inline-block; margin-top: 12px;">Ver figuras</a>
-        </article>
-      </div>
-
-      <div class="grid three" style="gap: 16px; margin-top: 16px;">
-        <article class="card" style="text-align: center; background: #f0f8f4;">
-          <p style="font-size: 2rem; margin: 0;">🧬</p>
-          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación WRB</h3>
-          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · Python · LightGBM<br/>F1-macro LOSO = 0.981</p>
-        </article>
-        <article class="card" style="text-align: center; background: #f0f8f4;">
-          <p style="font-size: 2rem; margin: 0;">📐</p>
-          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Clasificación USDA</h3>
-          <p style="font-size: 0.85rem; color: #555;">Ralph · Ignacio · R + Weka<br/>ROC AUC = 0.873</p>
-        </article>
-        <article class="card" style="text-align: center; background: #f0f8f4;">
-          <p style="font-size: 2rem; margin: 0;">🌐</p>
-          <h3 style="font-size: 0.95rem; margin: 8px 0 4px;">Web interactiva</h3>
-          <p style="font-size: 0.85rem; color: #555;">Jorge Herraiz · HTML · JS · CSS<br/>Presentación integrada</p>
-        </article>
-      </div>
-    </section>
-
+    <script>
+      // Inicialización: Mostrar ambos por defecto
+      usdaFields.style.display = 'block';
+      wrbFields.style.display = 'block';
+    </script>
   </main>
 </body>
 </html>

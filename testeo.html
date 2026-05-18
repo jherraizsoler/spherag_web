@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testeo · Clasificación de Suelos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-logos">
+        <img src="logos/logo_spherag.png" alt="Spherag" class="logo-spherag" />
+        <span class="divider"></span>
+        <img src="logos/logo_campus.png" alt="Campus Digital FP" />
+      </div>
+    </div>
+    <nav class="page-nav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="datos.html">Datos y Pipeline</a>
+      <a class="nav-link" href="dashboard.html">Dashboard Vivo</a>
+      <a class="nav-link" href="figuras.html">Figuras Técnicas</a>
+      <a class="nav-link" href="conclusiones.html">Patrones y Roadmap</a>
+      <a class="nav-link is-active" href="testeo.html">Testeo</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section id="testeo" class="content-block">
+      <h2>Formulario de Clasificación</h2>
+      <form id="classificationForm">
+        <h2 style="color: #333;">Campos Comunes</h2>
+        <div style="color: blue; margin-bottom: 20px;">
+          <label for="avgHum10cm">Humedad Media 10cm:</label>
+          <input type="number" id="avgHum10cm" name="avgHum10cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="avgHum50cm">Humedad Media 50cm:</label>
+          <input type="number" id="avgHum50cm" name="avgHum50cm" step="any" style="margin-left: 10px;">
+        </div>
+
+        <h2 style="color: #333;">Campos Específicos de USDA</h2>
+        <div style="color: green; margin-bottom: 20px;">
+          <label for="rangeHum10cm">Rango Humedad 10cm:</label>
+          <input type="number" id="rangeHum10cm" name="rangeHum10cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="rangeHum50cm">Rango Humedad 50cm:</label>
+          <input type="number" id="rangeHum50cm" name="rangeHum50cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="avgTemp10cm">Temperatura Media 10cm:</label>
+          <input type="number" id="avgTemp10cm" name="avgTemp10cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="rangeTemp10cm">Rango Temperatura 10cm:</label>
+          <input type="number" id="rangeTemp10cm" name="rangeTemp10cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="dryRate10cm">Velocidad de Secado 10cm:</label>
+          <input type="number" id="dryRate10cm" name="dryRate10cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="dryRate50cm">Velocidad de Secado 50cm:</label>
+          <input type="number" id="dryRate50cm" name="dryRate50cm" step="any" style="margin-left: 10px;">
+        </div>
+
+        <h2 style="color: #333;">Campos Específicos de WRB</h2>
+        <div style="color: orange; margin-bottom: 20px;">
+          <label for="id">ID:</label>
+          <input type="number" id="id" name="id" style="margin-left: 10px;">
+          <br><br>
+          <label for="depth">Profundidad:</label>
+          <input type="number" id="depth" name="depth" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="vwc30cm">Humedad Volumétrica 30cm:</label>
+          <input type="number" id="vwc30cm" name="vwc30cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="vwc40cm">Humedad Volumétrica 40cm:</label>
+          <input type="number" id="vwc40cm" name="vwc40cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="vwc60cm">Humedad Volumétrica 60cm:</label>
+          <input type="number" id="vwc60cm" name="vwc60cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="vic70cm">Conductividad Iónica 70cm:</label>
+          <input type="number" id="vic70cm" name="vic70cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="vic80cm">Conductividad Iónica 80cm:</label>
+          <input type="number" id="vic80cm" name="vic80cm" step="any" style="margin-left: 10px;">
+          <br><br>
+          <label for="hasVic">Tiene VIC Activo:</label>
+          <input type="number" id="hasVic" name="hasVic" step="any" style="margin-left: 10px;">
+        </div>
+
+        <h2 style="color: #333;">Selecciona el tipo de clasificación</h2>
+        <div style="margin-bottom: 20px;">
+          <label for="classificationType">Selecciona el tipo de clasificación:</label>
+          <select id="classificationType" style="margin-left: 10px;">
+            <option value="both">Ambos</option>
+            <option value="usda">USDA</option>
+            <option value="wrb">WRB</option>
+          </select>
+        </div>
+
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Clasificar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="usda_classification_predictive_model.js"></script>
+  <script src="wrb_classifier.js"></script>
+  <script>
+    document.getElementById('classificationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      console.log('Datos del formulario:', data);
+
+      // Lógica para llamar a las funciones de clasificación
+      const usdaResult = predictSoilType(
+        parseFloat(data.avgHum10cm),
+        parseFloat(data.avgHum50cm),
+        parseFloat(data.rangeHum10cm),
+        parseFloat(data.rangeHum50cm),
+        parseFloat(data.avgTemp10cm),
+        parseFloat(data.rangeTemp10cm),
+        parseFloat(data.dryRate10cm),
+        parseFloat(data.dryRate50cm)
+      );
+
+      const wrbResult = classifyWRB({
+        id: parseInt(data.id),
+        depth: parseFloat(data.depth),
+        vwc10cm: parseFloat(data.avgHum10cm),
+        vwc30cm: parseFloat(data.vwc30cm),
+        vwc40cm: parseFloat(data.vwc40cm),
+        vwc60cm: parseFloat(data.vwc60cm),
+        vic70cm: parseFloat(data.vic70cm),
+        vic80cm: parseFloat(data.vic80cm),
+        hasVic: parseFloat(data.hasVic)
+      });
+
+      console.log('Resultado USDA:', usdaResult);
+      console.log('Resultado WRB:', wrbResult);
+    });
+  </script>
+</body>
+</html>
